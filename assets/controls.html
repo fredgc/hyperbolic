@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>controls</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<h1 id="hyperbolic-geometry-tool-controls">Hyperbolic Geometry Tool
+Controls</h1>
+<hr />
+<h2 id="viewport-navigation">1. Viewport Navigation</h2>
+<ul>
+<li><p><strong>Hyperbolic Dragging (Möbius Transformations)</strong>:
+Click and drag directly on the Poincarédisk to perform smooth Möbius
+transformations
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>S</mi><mi>U</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">PSU(1,1)</annotation></semantics></math>).
+All hyperbolic lines, circles, and ideal triangles dynamically preserve
+angles and conformal hyperbolic distance.</p></li>
+<li><p><strong>Euclidean Pan &amp; Zoom</strong>:</p>
+<ul>
+<li><p><strong>Mouse Wheel / Trackpad</strong>: Scroll or pinch to zoom
+smoothly in or out.</p></li>
+<li><p><strong>Pan/Zoom Tool</strong>: Select the
+<strong>Pan/Zoom</strong> tool and drag to pan the Euclidean
+viewport.</p></li>
+<li><p><strong>Reset View</strong>: Click the <strong>Reset
+View</strong> button in the toolbar or View menu to return to default
+origin and zoom.</p></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="selection-object-editing">2. Selection &amp; Object Editing</h2>
+<ul>
+<li><p><strong>Selecting Objects</strong>: Select the
+<strong>Select</strong> tool and click any point, geodesic, circle, or
+number.</p></li>
+<li><p><strong>Properties Bar</strong>: When an object is selected, a
+banner appears above the canvas displaying:</p>
+<ul>
+<li><p>Object type indicator chip.</p></li>
+<li><p>Inline editable <strong>Name</strong> field (supports tap-to-edit
+with Undo/Redo).</p></li>
+<li><p>Interactive <strong>Color Picker</strong> swatch to choose any
+custom color.</p></li>
+<li><p><strong>Lock / Unlock</strong> toggle and <strong>Delete</strong>
+button.</p></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="dedicated-interactive-slider">3. Dedicated Interactive
+Slider</h2>
+<ul>
+<li><p>Located directly beneath the Poincarédisk canvas.</p></li>
+<li><p><strong>Inactive State</strong>: When no number is selected, the
+slider is disabled with an empty label.</p></li>
+<li><p><strong>Active State</strong>: Clicking any numeric parameter in
+the Numbers panel binds the slider to that number, updating the name,
+range, and current value.</p></li>
+<li><p>Drag the thumb or use the arrow buttons to smoothly adjust the
+parameter and watch dependent geometric objects update in real
+time.</p></li>
+</ul>
+<hr />
+<h2 id="settings-help">4. Settings &amp; Help</h2>
+<ul>
+<li><p>Tap the <strong>Settings</strong> gear in the toolbar to adjust
+grid division parameters, disk boundary styling, theme modes
+(Light/Dark/System), and active locale.</p></li>
+<li><p>Open the <strong>Help</strong> menu for interactive guides,
+keyboard shortcut reference, and documentation on Poincarédisk
+geometry.</p></li>
+</ul>
+</body>
+</html>

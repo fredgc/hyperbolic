@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>幾何オブジェクトのガイド</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">幾何オブジェクトのガイド</h1>
+</header>
+<p>双曲幾何作図ツールは、ポアンカレ円板モデル<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>上で幾何要素および数値パ
+ラメータをモデル化します。</p>
+<h2 id="点">1. 点</h2>
+<ul>
+<li><p><strong>自由点</strong>:
+<strong>点</strong>ツールを選択し、単位円板内の任意の場所をクリックします。自由点は円板内のどこへでもドラッグできます。</p></li>
+<li><p><strong>拘束点</strong>:
+<strong>交点</strong>ツールを使用して、2本の直線または円の交点として点を作成できます。</p></li>
+<li><p><strong>点の編集</strong>:
+<strong>選択</strong>ツールで点をクリックするとプロパティバーが表示され、名前の変更、カラーピッカーによる色の変更、ロック状態の切り替えが可能
+です。</p></li>
+</ul>
+<h2 id="測地線と線分">2. 測地線と線分</h2>
+<ul>
+<li><p><strong>双曲直線</strong>:
+<strong>直線</strong>ツールを選択し、2つの既存の点をクリックします（または空白部分をクリックして新規作成）。境界円と直交するように円板を横断
+する測地線が描かれます。</p></li>
+<li><p><strong>線分</strong>:
+<strong>線分</strong>ツールを選択し、2つの端点をクリックして有限長の測地線分を作成します。</p></li>
+<li><p><strong>スタイルと色</strong>:直線または線分を選択して、プロパティバーから名前や線の色を変更できます。</p></li>
+</ul>
+<h2 id="双曲円">3. 双曲円</h2>
+<ul>
+<li><p><strong>円の作成</strong>:
+<strong>円</strong>ツールを選択します。1つ目の点をクリックして双曲的な中心とし、2つ目の点をクリックして半径を決定します。</p></li>
+<li><p><strong>性質</strong>:ポアンカレモデルにおいて、双曲円は通常のユークリッド円として描かれますが、そのユークリッド中心は円板の原点側へ偏って配置されます。</p></li>
+</ul>
+<h2 id="数値オブジェクトと測定">4. 数値オブジェクトと測定</h2>
+<ul>
+<li><p><strong>距離</strong>:
+<strong>距離</strong>ツールを選択して2点をクリックします。双曲距離を表す新しい数値がパラメータ一覧に追加されます。</p></li>
+<li><p><strong>角度</strong>:
+<strong>角度</strong>ツールを選択して3点をクリックし、共形な双曲角を測定します。</p></li>
+<li><p><strong>自由パラメータ</strong>:数値パネルで<strong>+</strong>をクリックし、自由なスカラーパラメータを追加します。</p></li>
+<li><p><strong>スライダー調整</strong>:パネル内の任意の数値をクリックすると、キャンバス下のメインスライダーが有効化され、値を操作できます。</p></li>
+</ul>
+</body>
+</html>

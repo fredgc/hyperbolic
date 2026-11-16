@@ -1,0 +1,156 @@
+name: hyperbolic
+description: "Hyperbolic Geometry Drawing Tool"
+publish_to: 'none'
+version: 2.0.2+0
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  cupertino_icons: ^1.0.8
+  extension_google_sign_in_as_googleapis_auth: ^3.0.0
+  file_picker: ^12.0.0-beta.7
+  file_saver: ^0.4.0
+  firebase_auth: ^7.0.1
+  firebase_core: ^5.1.0
+  flex_color_picker: ^3.7.0
+  webview_flutter: ^4.12.1
+  webview_flutter_web: ^0.2.3
+  flutter_native_splash: ^2.4.5
+  go_router: ^17.0.1
+  google_fonts: ^8.0.1
+  google_sign_in: ^7.1.1
+  googleapis: ^16.0.0
+  googleapis_auth: ^2.0.0
+  json_annotation: ^4.12.0
+  mutex: ^3.1.0
+  package_info_plus: ^10.2.0
+  path_provider: ^2.1.5
+  shared_preferences: ^2.5.2
+  url_launcher: ^6.3.1
+  petitparser: ^7.0.1
+  flutter_secure_storage: ^10.0.0
+  http: ^1.2.1
+  html_tweak:
+    path: ./html_tweak
+  google_sign_in_web: ^1.1.3
+  web: ^1.1.1
+  webview_flutter_platform_interface: ^2.15.1
+  flutter_markdown_plus: ^1.0.12
+  flutter_markdown_plus_latex: ^1.0.5
+  flutter_math_fork: ^0.7.4
+  markdown: ^7.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  google_sign_in_mocks: ^0.4.1
+  shared_preferences_platform_interface: ^2.4.1
+  plugin_platform_interface: ^2.1.8
+  flutter_lints: ^6.0.0
+  test: ^1.25.8
+  flutter_launcher_icons: any
+  build_runner: ^2.4.14
+  json_serializable: ^6.9.3
+  mockito: ^5.4.5
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - path: assets/about.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_de.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_es.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_fr.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_ja.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_lt.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_pt.html
+      transformers:
+        - package: html_tweak
+    - path: assets/about_zh.html
+      transformers:
+        - package: html_tweak
+    - assets/controls.html
+    - assets/controls_de.html
+    - assets/controls_es.html
+    - assets/controls_fr.html
+    - assets/controls_ja.html
+    - assets/controls_lt.html
+    - assets/controls_pt.html
+    - assets/controls_zh.html
+    - assets/files.html
+    - assets/files_de.html
+    - assets/files_es.html
+    - assets/files_fr.html
+    - assets/files_ja.html
+    - assets/files_lt.html
+    - assets/files_pt.html
+    - assets/files_zh.html
+    - assets/objects.html
+    - assets/objects_de.html
+    - assets/objects_es.html
+    - assets/objects_fr.html
+    - assets/objects_ja.html
+    - assets/objects_lt.html
+    - assets/objects_pt.html
+    - assets/objects_zh.html
+    - assets/overview.html
+    - assets/overview_de.html
+    - assets/overview_es.html
+    - assets/overview_fr.html
+    - assets/overview_ja.html
+    - assets/overview_lt.html
+    - assets/overview_pt.html
+    - assets/overview_zh.html
+    - assets/privacy.html
+    - assets/privacy_de.html
+    - assets/privacy_es.html
+    - assets/privacy_fr.html
+    - assets/privacy_ja.html
+    - assets/privacy_lt.html
+    - assets/privacy_pt.html
+    - assets/privacy_zh.html
+    - assets/terms.html
+    - assets/terms_de.html
+    - assets/terms_es.html
+    - assets/terms_fr.html
+    - assets/terms_ja.html
+    - assets/terms_lt.html
+    - assets/terms_pt.html
+    - assets/terms_zh.html
+    - assets/dev/
+    - assets/css/
+    - assets/icons/
+    - assets/tutorials/
+    - assets/dev/tutorials/
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "assets/icons/background.png"
+  adaptive_icon_foreground: "assets/icons/foreground.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/icon.png"
+    background_color: "#d4c2fc"
+    theme_color: "#3b185f"

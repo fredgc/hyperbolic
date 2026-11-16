@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guide des commandes et de la navigation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guide des commandes et de la navigation</h1>
+</header>
+<p>L’application fournit des outils intuitifs dans la barre d’outils,
+des gestes interactifs sur le canevas et un curseur dédiépour manipuler
+les diagrammes hyperboliques :</p>
+<h2 id="navigation-dans-la-vue">1. Navigation dans la vue</h2>
+<ul>
+<li><p><strong>Translation de Möbius (Déplacer le disque)</strong> :
+Sélectionnez l’outil <strong>Déplacer le disque</strong> et faites
+glisser le pointeur sur le canevas. Le plan hyperbolique est translatéde
+manière fluide par des automorphismes du disque (isométries), déplaçant
+le point sous le pointeur tout en préservant toutes les longueurs,
+angles et cercles hyperboliques.</p></li>
+<li><p><strong>Déplacement et zoom euclidiens</strong> :</p>
+<ul>
+<li><p><strong>Molette / Pavétactile</strong> : Faites défiler ou pincez
+pour zoomer ou dézoomer en douceur.</p></li>
+<li><p><strong>Outil Pan/Zoom</strong> : Sélectionnez l’outil
+<strong>Pan/Zoom</strong> et faites glisser pour déplacer la vue
+euclidienne.</p></li>
+<li><p><strong>Réinitialiser la vue</strong> : Cliquez sur le bouton
+<strong>Réinitialiser la vue</strong> dans la barre d’outils ou le menu
+Affichage pour rétablir l’origine et le zoom par défaut.</p></li>
+</ul></li>
+</ul>
+<h2 id="sélection-et-modification-dobjets">2. Sélection et modification
+d’objets</h2>
+<ul>
+<li><p><strong>Sélection d’objets</strong> : Sélectionnez l’outil
+<strong>Sélectionner</strong> et cliquez sur un point, une géodésique,
+un cercle ou un nombre.</p></li>
+<li><p><strong>Barre des propriétés</strong> : Lorsqu’un objet est
+sélectionné, un bandeau apparaît au-dessus du canevas, affichant :</p>
+<ul>
+<li><p>Un indicateur du type d’objet.</p></li>
+<li><p>Un champ de <strong>Nom</strong> modifiable (permettant la
+modification avec Annuler/Rétablir).</p></li>
+<li><p>Un sélecteur de couleur interactif pour choisir une couleur
+personnalisée.</p></li>
+<li><p>Un bouton <strong>Verrouiller / Déverrouiller</strong> et un
+bouton <strong>Supprimer</strong>.</p></li>
+</ul></li>
+</ul>
+<h2 id="curseur-interactif-dédié">3. Curseur interactif dédié</h2>
+<ul>
+<li><p>Situédirectement sous le canevas du disque de Poincaré.</p></li>
+<li><p><strong>État inactif</strong> : Lorsqu’aucun nombre n’est
+sélectionné, le curseur est désactivéavec uneétiquette vide.</p></li>
+<li><p><strong>État actif</strong> : En cliquant sur un paramètre
+numérique dans le panneau des nombres, le curseur se lieàce nombre en
+mettantàjour le nom, la plage et la valeur actuelle.</p></li>
+<li><p>Faites glisser le curseur ou utilisez les boutons fléchés pour
+ajuster le paramètre de manière fluide et observer la miseàjour des
+objets géométriques dépendants en temps réel.</p></li>
+</ul>
+<h2 id="paramètres-et-aide">4. Paramètres et aide</h2>
+<ul>
+<li><p><strong>Bouton Paramètres</strong> : Cliquez sur l’icône
+d’engrenage dans la barre supérieure pour configurer les thèmes, les
+couleurs et les préférences. Les paramètres sont conservés d’une
+sessionàl’autre.</p></li>
+<li><p><strong>Menu d’aide</strong> : Cliquez sur l’icône d’aide (?)
+dans la barre supérieure pour consulter la pageÀpropos, les guides de
+construction et la documentation de développement.</p></li>
+</ul>
+</body>
+</html>

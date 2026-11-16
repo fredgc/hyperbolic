@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>plan</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../css/doc_style.css" />
+</head>
+<body>
+<h1 id="hyperbolic-geometry-drawing-tool-plan">Hyperbolic Geometry
+Drawing Tool Plan</h1>
+<p>This document outlines the strategic roadmap, architecture goals, and
+milestones for the <strong>Hyperbolic</strong> Flutter project.</p>
+<blockquote>
+<p><strong>Note</strong>: Active day-to-day tasks and issue tracking are
+managed dynamically using <code>~/bin/todo.py</code>. Run
+<code>~/bin/todo.py list</code> to view active tasks.</p>
+</blockquote>
+<hr />
+<h2 id="thoughts">Thoughts</h2>
+<p>We need to reduce the footprint of the top bar. It should have a
+basic set of tools. I like the way each tool currently has a menu that
+lets you pick what it’s current tool is.</p>
+<p>Maybe we can have a two layer menu system for the current tool so
+that only the current tool is spelled out. I.e., if the current tool is
+select, the Point, Line, Circle, and Constructor menus are collapsed
+like: (Select v) (Pv) (Lv) (Ov) (Con v)</p>
+<p>We can put the number constructor menu above the list of numbers. It
+would include the “free number”.</p>
+<h2 id="constructors-design-implementation-plan">Constructors: Design
+&amp; Implementation Plan</h2>
+<h3 id="architectural-model-taxonomy">1. Architectural Model &amp;
+Taxonomy</h3>
+<p>A <strong>Constructor</strong> is an interactive, parameterized
+command that creates one or more geometric objects
+(<code>SceneObject</code>) and their generating <code>Constraint</code>
+node in the bipartite constraint graph.</p>
+<p>Constructors are classified into two categories:</p>
+<ul>
+<li><p><strong>Primitive Constructors (Single-Constraint
+Generators)</strong>: Directly construct an object driven by a dedicated
+<code>Constraint</code> node in the bipartite DAG (e.g.,
+<code>PointObject</code> via <code>FreePointConstraint</code>,
+<code>LineObject</code> via <code>TwoPointLineConstraint</code>,
+<code>CircleObject</code> via
+<code>CircleRadiusConstraint</code>).</p></li>
+<li><p><strong>Compound / Macro Constructors (Multi-Constraint
+Generators)</strong>: Synthesize high-level geometric constructions
+(e.g., perpendicular bisector, circumcircle) by executing a sequence of
+primitive constructions. Compound constructors wire intermediate objects
+and return primary output objects to the scene. They can either remain
+as dynamic subgraphs (where moving original points moves all
+intermediate and derived objects) or be collapsed into a composite
+constraint.</p></li>
+</ul>
+<p>Constructors are grouped by their primary output type:</p>
+<ul>
+<li><p><strong>Points</strong>: Free points, points on curves,
+intersections, midpoints.</p></li>
+<li><p><strong>Lines, Rays &amp; Segments</strong>: Full geodesics,
+segments, rays, angle lines, perpendiculars.</p></li>
+<li><p><strong>Circles</strong>: Center and passing point, center and
+radius, compass transfer.</p></li>
+<li><p><strong>Numbers &amp; Measurements</strong>: Hyperbolic
+distances, angles, coordinates, free sliders.</p></li>
+<li><p><strong>Constructions (High School &amp; Neutral
+Geometry)</strong>: Perpendicular bisectors, angle bisectors, dropping
+perpendiculars, copying angles/segments, polygons.</p></li>
+</ul>
+<h3 id="user-interaction-workflow-design">2. User Interaction &amp;
+Workflow Design</h3>
+<h4 id="multi-step-selection-state-machine">Multi-Step Selection State
+Machine</h4>
+<p>Constructors that require multiple inputs (e.g., two points for a
+line, or a line and an external point for a perpendicular) follow a
+standardized state machine:</p>
+<ol type="1">
+<li><p><strong>Activation</strong>: Clicking a constructor tool in the
+toolbar (or selecting it from a group dropdown) activates the tool and
+enters step 1 of its selection sequence.</p></li>
+<li><p><strong>Contextual Status &amp; Prompt</strong>: A banner or
+status line above the canvas displays prompt instructions (e.g.,
+<code>"Select first point"</code>, <code>"Select line"</code>,
+<code>"Select distance or enter radius"</code>).</p></li>
+<li><p><strong>Visual Affordances &amp; Snapping</strong>: Hovering over
+candidate objects highlights them with an outline or glow. If a
+constructor expects a point, clicking in empty canvas space can either
+instantly create a new <code>FreePoint</code> or snap to an existing
+point or intersection.</p></li>
+<li><p><strong>Chaining &amp; Nesting (Stacked Input Creation)</strong>:
+If a constructor requires an input (e.g., a point) that does not yet
+exist, the user can seamlessly invoke a point constructor or click on an
+intersection to create that input inline without losing their place in
+the parent constructor sequence.</p></li>
+<li><p><strong>Completion &amp; Selection</strong>: Once all inputs are
+satisfied, the output objects and constraint are committed to
+<code>SceneData</code>, added to <code>MyUndoManager</code> as a single
+undoable action, and automatically selected.</p></li>
+<li><p><strong>Cancellation</strong>: Pressing <code>Escape</code>,
+clicking the <code>Select</code> tool, or clicking a dedicated Cancel
+action cancels the active constructor and resets selection
+state.</p></li>
+</ol>
+<h4 id="toolbar-organization-progressive-disclosure">Toolbar
+Organization &amp; Progressive Disclosure</h4>
+<ul>
+<li><p><strong>Grouped Dropdown / Flyout Buttons</strong>: To prevent
+toolbar clutter, the toolbar organizes constructors into five dropdown
+clusters: Points, Lines, Circles, Measurements, and Constructions. Each
+button displays the active constructor icon, with a dropdown arrow
+revealing alternative constructors in that family.</p></li>
+<li><p><strong>Progressive Disclosure via Tutorials</strong>: New users
+start with a clean, focused default toolset (Free Point, Geodesic Line,
+Segment, Circle by Center+Point, Distance, Move Disk, Select). Advanced
+constructors (Perpendicular Bisector, Angle Bisector, Limiting
+Parallels, Inscribed Circle) are progressively unlocked as the user
+completes relevant tutorials, or can be toggled on all at once via a
+“Show All Tools” setting.</p></li>
+</ul>
+<h4 id="object-naming-styling-number-ranges">Object Naming, Styling
+&amp; Number Ranges</h4>
+<ul>
+<li><p><strong>Name Suggestion</strong>: Default names follow
+mathematical conventions via <code>NameGuesser</code> (points:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi><mi>…</mi></mrow><annotation encoding="application/x-tex">A, B, C \dots</annotation></semantics></math>;
+lines:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>1</mn></msub><mo>,</mo><msub><mi>L</mi><mn>2</mn></msub><mi>…</mi></mrow><annotation encoding="application/x-tex">L_1, L_2 \dots</annotation></semantics></math>;
+circles:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>,</mo><msub><mi>C</mi><mn>2</mn></msub><mi>…</mi></mrow><annotation encoding="application/x-tex">C_1, C_2 \dots</annotation></semantics></math>;
+angles:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>,</mo><mi>β</mi><mo>,</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\alpha, \beta, \theta</annotation></semantics></math>;
+distances:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub><mo>,</mo><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_1, d(A,
+B)</annotation></semantics></math>).</p></li>
+<li><p><strong>Color Inheritance</strong>: New objects automatically
+adopt the currently selected palette color in the toolbar.</p></li>
+<li><p><strong>Number Range Configuration</strong>: Every created
+<code>NumberObject</code> defaults to reasonable bounds based on its
+role:</p>
+<ul>
+<li><p>Hyperbolic distance:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>d</mi><mo>&lt;</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">0 \le d &lt; \infty</annotation></semantics></math>
+(default range
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 5]</annotation></semantics></math>,
+editable).</p></li>
+<li><p>Angle:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>π</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, \pi]</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0, 2\pi]</annotation></semantics></math>
+with radians/degrees toggle.</p></li>
+<li><p>Free parameters: customizable minimum, maximum, and step
+size.</p></li>
+</ul></li>
+</ul>
+<h3 id="detailed-constructor-catalog">3. Detailed Constructor
+Catalog</h3>
+<h4 id="a.-points">A. Points</h4>
+<ul>
+<li><p><strong>Free Point</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Screen click converted to Poincarédisk
+coordinates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>u</mi><mi>x</mi></msub><mo>,</mo><msub><mi>u</mi><mi>y</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(u_x, u_y)</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>PointObject</code> governed by
+<code>FreePointConstraint</code>.</p></li>
+</ul></li>
+<li><p><strong>Point on Line / Segment / Ray</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Target line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
+initial click position near
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>PointObject</code> constrained by
+parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">t \in \mathbb{R}</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Point on Circle</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Target circle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
+initial click position near
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>PointObject</code> constrained by angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>2</mn><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta \in [0, 2\pi)</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Intersection Point(s)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Two curves (Line-Line, Line-Circle,
+Circle-Circle).</p></li>
+<li><p><em>Outputs</em>: 1 or 2 <code>PointObject</code>s governed by
+<code>IntersectionConstraint</code>.</p></li>
+</ul></li>
+<li><p><strong>Midpoint</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Two points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>
+or segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>PointObject</code> at hyperbolic midpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
+such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(A, M) =
+d(M, B)</annotation></semantics></math>.</p></li>
+</ul></li>
+</ul>
+<h4 id="b.-lines-rays-segments">B. Lines, Rays &amp; Segments</h4>
+<ul>
+<li><p><strong>Line through Two Points</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Two points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Complete geodesic <code>LineObject</code>
+extending to boundary circle.</p></li>
+</ul></li>
+<li><p><strong>Segment between Two Points</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Two points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Bounded geodesic <code>LineObject</code>
+(<code>segment</code>) between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Ray through Two Points</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Endpoint point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+direction point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Semi-infinite geodesic <code>LineObject</code>
+(<code>ray</code>) starting at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+to boundary.</p></li>
+</ul></li>
+<li><p><strong>Line by Point and Angle</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Base line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
+point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \in L</annotation></semantics></math>,
+angle <code>NumberObject</code>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Geodesic line through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+making angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Extend Segment to Line</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Segment or Ray.</p></li>
+<li><p><em>Outputs</em>: Full geodesic line through the segment’s
+endpoints.</p></li>
+</ul></li>
+</ul>
+<h4 id="c.-circles">C. Circles</h4>
+<ul>
+<li><p><strong>Circle by Center and Passing Point</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Center point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+boundary point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>CircleObject</code> with radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(P, Q)</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Circle by Center and Radius Number</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Center point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+<code>NumberObject</code>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>CircleObject</code> with hyperbolic
+radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Compass Circle (Transfer Distance)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>
+(or pair of points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>),
+center point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>CircleObject</code> centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+with hyperbolic radius equal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(A, B)</annotation></semantics></math>.</p></li>
+</ul></li>
+</ul>
+<h4 id="d.-numbers-measurements">D. Numbers &amp; Measurements</h4>
+<ul>
+<li><p><strong>Free Slider Number</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Value, min, max (via dialog or default
+slider).</p></li>
+<li><p><em>Outputs</em>: Free <code>NumberObject</code> displayed in
+side panel.</p></li>
+</ul></li>
+<li><p><strong>Distance Measurement</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Two points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: <code>NumberObject</code> constrained to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mrow><mi>artanh</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>A</mi><mo>−</mo><mi>B</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mi>B</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">d(A, B) =
+2\operatorname{artanh}\left|\frac{A - B}{1 - \bar{A}B}\right|</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Angle Measurement</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Three points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">A, B, C</annotation></semantics></math>
+(vertex at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>)
+or two intersecting lines.</p></li>
+<li><p><em>Outputs</em>: <code>NumberObject</code> constrained to
+conformal hyperbolic angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∠</mi><mi>A</mi><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">\angle ABC</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Point Coordinates</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Linked <code>NumberObject</code>s for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+or polar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r, \theta)</annotation></semantics></math>.</p></li>
+</ul></li>
+</ul>
+<h4 id="e.-high-school-geometry-constructions-neutral-classical">E. High
+School Geometry Constructions (Neutral &amp; Classical)</h4>
+<p>In hyperbolic geometry, all neutral geometry constructions (Euclid’s
+Book I, propositions 1–28) hold identically using straightedge and
+compass:</p>
+<ul>
+<li><p><strong>Perpendicular Bisector of Segment</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>
+(or two points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>).</p></li>
+<li><p><em>Construction</em>: Intersect two equal-radius circles
+centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>;
+draw geodesic line through intersection points.</p></li>
+<li><p><em>Outputs</em>: Midpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>,
+perpendicular bisector line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mo>⟂</mo></msub><annotation encoding="application/x-tex">L_\perp</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Angle Bisector</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∠</mi><mi>A</mi><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">\angle ABC</annotation></semantics></math>
+(three points or two intersecting lines).</p></li>
+<li><p><em>Construction</em>: Circle centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+finds equidistant points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo>∈</mo><mi>B</mi><mi>A</mi><mo>,</mo><msub><mi>P</mi><mn>2</mn></msub><mo>∈</mo><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">P_1 \in
+BA, P_2 \in BC</annotation></semantics></math>; intersecting circles at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo>,</mo><msub><mi>P</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">P_1, P_2</annotation></semantics></math>
+yield point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>;
+line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>Q</mi></mrow><annotation encoding="application/x-tex">BQ</annotation></semantics></math>
+bisects
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∠</mi><mi>A</mi><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">\angle ABC</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Bisector ray/line.</p></li>
+</ul></li>
+<li><p><strong>Perpendicular through Point on Line</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
+point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \in L</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Geodesic line orthogonal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Perpendicular from External Point to Line (Drop
+Perpendicular)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
+point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∉</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \notin L</annotation></semantics></math>.</p></li>
+<li><p><em>Construction</em>: Circle centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+meets
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+at two points; perpendicular bisector of those points passes through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and is orthogonal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Orthogonal foot point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>∈</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">H \in L</annotation></semantics></math>,
+perpendicular line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">PH</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Copy Segment (Compass Transfer)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>,
+target ray or line with origin
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+on target ray such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo>,</mo><mi>P</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(O, P) = d(A, B)</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Copy Angle</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∠</mi><mi>A</mi><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">\angle ABC</annotation></semantics></math>,
+target ray with vertex
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Ray from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
+forming an identical angle.</p></li>
+</ul></li>
+<li><p><strong>Equilateral Triangle</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+(intersection of circles of radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>)
+and triangle segments
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>C</mi><mo>,</mo><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">AC, BC</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Circumscribed Circle (Circumcenter)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Three non-collinear points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">A, B, C</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Circumcenter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>
+(intersection of perpendicular bisectors) and circumcircle passing
+through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">A, B, C</annotation></semantics></math>
+(when circumcenter exists in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝔻</mi><annotation encoding="application/x-tex">\mathbb{D}</annotation></semantics></math>).</p></li>
+</ul></li>
+<li><p><strong>Inscribed Circle (Incenter)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Triangle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">A, B, C</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Incenter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+(intersection of angle bisectors) and incircle tangent to all three
+edges.</p></li>
+</ul></li>
+</ul>
+<h4 id="f.-hyperbolic-specific-constructions">F. Hyperbolic-Specific
+Constructions</h4>
+<ul>
+<li><p><strong>Limiting Parallel Line (Asymptotic
+Geodesic)</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>,
+external point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∉</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \notin L</annotation></semantics></math>,
+direction (left/right).</p></li>
+<li><p><em>Construction</em>: Find ideal endpoint
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo>∈</mo><mi>∂</mi><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">\Omega \in \partial \mathbb{D}</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>;
+draw geodesic line through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Limiting parallel line meeting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+at infinity.</p></li>
+</ul></li>
+<li><p><strong>Common Perpendicular of Ultraparallel Lines</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Two ultraparallel (non-intersecting,
+non-asymptotic) lines
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>1</mn></msub><mo>,</mo><msub><mi>L</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">L_1,
+L_2</annotation></semantics></math>.</p></li>
+<li><p><em>Construction</em>: Determine the unique geodesic orthogonal
+to both lines.</p></li>
+<li><p><em>Outputs</em>: Orthogonal geodesic line and the two foot
+points of shortest distance.</p></li>
+</ul></li>
+<li><p><strong>Ideal Triangle</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Three ideal boundary points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">Ω</mi><mn>1</mn></msub><mo>,</mo><msub><mi mathvariant="normal">Ω</mi><mn>2</mn></msub><mo>,</mo><msub><mi mathvariant="normal">Ω</mi><mn>3</mn></msub><mo>∈</mo><mi>∂</mi><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">\Omega_1, \Omega_2, \Omega_3 \in
+\partial \mathbb{D}</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Three bounding geodesic lines, forming a
+triangle with angle sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Lambert &amp; Saccheri Quadrilaterals</strong>:</p>
+<ul>
+<li><p><em>Inputs</em>: Base segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>,
+height
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>.</p></li>
+<li><p><em>Outputs</em>: Quadrilateral with right angles at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+equal legs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>D</mi><mo>=</mo><mi>B</mi><mi>C</mi><mo>=</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">AD
+= BC = h</annotation></semantics></math>, and acute summit angles at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>.</p></li>
+</ul></li>
+</ul>
+<h2 id="infrastructure">Infrastructure</h2>
+<p>We’ll need to include file handling and Google Drive interaction,
+which has not been set up yet. We’ll use Flutter and Firebase to publish
+the app.</p>
+<p>Early development will focus on setting up all the Flutter/Firebase
+config files, adapting the working infrastructure from
+<code>../spacetime</code>. Note that <code>setup.sh</code> has already
+been updated to point to the <code>fredgc-hyperbolic</code> Firebase
+project console. This project does not yet exist.</p>
+<p>We’ll also create a new <code>icon.xcf</code> and copy the version
+rolling (<code>roll_build_number.sh</code>), icon export
+(<code>export-icons.py</code>), and build scripts
+(<code>Makefile</code>, <code>json-builder.sh</code>,
+<code>run-local-*.sh</code>, <code>log_server.py</code>) from
+<code>../spacetime</code>.</p>
+<h2 id="ui-viewport-navigation">UI &amp; Viewport Navigation</h2>
+<p>The main drawing canvas will render the Poincaréunit disk with
+points, lines, line segments/rays, and circles drawn on it.</p>
+<ul>
+<li><p><strong>Viewport Navigation</strong>: The canvas will support
+both:</p>
+<ul>
+<li><p><strong>Euclidean Zoom &amp; Pan</strong>: Allows inspecting fine
+details near the unit disk boundary where hyperbolic objects crowd
+together in Euclidean space.</p></li>
+<li><p><strong>Hyperbolic Translation (Möbius Isometry Mode)</strong>:
+Applies disk automorphisms
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>θ</mi></mrow></msup><mfrac><mrow><mi>z</mi><mo>−</mo><mi>a</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>a</mi><mo accent="true">‾</mo></mover><mi>z</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">z \mapsto e^{i\theta}\frac{z - a}{1 - \bar{a}z}</annotation></semantics></math>
+to smoothly shift which point of the hyperbolic plane is at the center
+of the unit disk while preserving all hyperbolic distances and
+angles.</p></li>
+</ul></li>
+<li><p><strong>Number Objects Panel</strong>: There will be a scrollable
+list of <code>Number</code> objects. Depending on the aspect ratio of
+the window (using <code>SplitterWidget</code>), the list will be
+positioned below the disk (portrait/narrow) or to the right of the disk
+(landscape/wide).</p></li>
+</ul>
+<h2 id="objects">Objects</h2>
+<p>As in <code>spacetime</code>, most objects can have names, colors,
+visibility, and locked states.</p>
+<ul>
+<li><p><strong>Geometric Objects</strong> (drawn on the main
+canvas):</p>
+<ul>
+<li><p><strong>Point</strong>: A point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">z \in \mathbb{D}</annotation></semantics></math>
+inside the open unit disk.</p></li>
+<li><p><strong>Line / Segment / Ray</strong>: A hyperbolic geodesic
+(orthogonal circular arc or diameter), rendered as a full line across
+the disk, a segment between two points, or a ray.</p></li>
+<li><p><strong>Circle</strong>: A hyperbolic circle with hyperbolic
+center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and hyperbolic radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>.</p></li>
+</ul></li>
+<li><p><strong>Number Objects</strong> (displayed in the side/bottom
+list):</p>
+<ul>
+<li><p>Represent real numbers (coordinates, hyperbolic distances/radii,
+angles, or free parameters).</p></li>
+<li><p>When editing a <code>Number</code> object, an interactive slider
+(<code>MySlider</code>) lets the user smoothly adjust its value and
+animate it over a range.</p></li>
+</ul></li>
+<li><p><strong>Locking</strong>: Objects can be locked so their
+values/positions cannot be adjusted by direct manipulation or by the
+constraint solver.</p></li>
+<li><p><strong>Constraints (Bipartite Object/Constraint
+Graph)</strong>:</p>
+<ul>
+<li><p>Every object is generated or governed by a
+<code>Constraint</code>, forming an alternating (red/black) bipartite
+graph of <code>Drawable</code>/<code>Number</code> objects and
+<code>Constraint</code> nodes:</p>
+<ul>
+<li><p><strong>Free / Parameter Constraints</strong>: Free point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math>
+or polar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(r,
+\theta)</annotation></semantics></math> driven by two
+<code>Number</code> objects; point constrained to lie on a line or
+circle at parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.</p></li>
+<li><p><strong>Line Constraints</strong>: Line/segment/ray through two
+points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo>,</mo><msub><mi>P</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">P_1, P_2</annotation></semantics></math>.</p></li>
+<li><p><strong>Angle Constraint</strong>: A line through a point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+on another line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+that forms an angle with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+whose measure is specified by a <code>Number</code> object (note:
+because the Poincarédisk model is conformal, hyperbolic angles equal the
+Euclidean angles between tangent vectors at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>).</p></li>
+<li><p><strong>Circle Constraints</strong>: Circle from center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+on circle; circle from center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+and <code>Number</code> radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+(or distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(A, B)</annotation></semantics></math>
+between two points).</p></li>
+<li><p><strong>Intersection Constraints</strong>: Intersection point(s)
+of two lines, a line and a circle, or two circles.</p></li>
+<li><p><strong>Measurement / Coordinate Constraints</strong>:
+<code>Number</code> constrained to be the hyperbolic distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(P, Q)</annotation></semantics></math>,
+hyperbolic angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∠</mi><mi>A</mi><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">\angle ABC</annotation></semantics></math>,
+or disk coordinates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>r</mi><mo>,</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x, y, r, \theta)</annotation></semantics></math>
+of a point.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="constraint-solver">Constraint Solver</h2>
+<p>When the user selects and drags an object (or adjusts a
+<code>Number</code> slider):</p>
+<ol type="1">
+<li><p><strong>Downward Propagation (Forward Evaluation)</strong>:
+Changes to ancestor inputs automatically recompute all descendant
+constraints and objects in topological order.</p></li>
+<li><p><strong>Upward Propagation (Numerical Inverse Solver)</strong>:
+If the user drags a derived object (such as the intersection of two
+lines or a point on a circle) whose inputs are not locked, the solver
+traverses upward to identify unlocked ancestor parameters and takes a
+damped least-squares / gradient descent step (using the Jacobian of the
+dragged object’s position with respect to unlocked ancestor parameters)
+so the dragged object follows the user’s cursor while keeping the entire
+constraint graph satisfied.</p></li>
+</ol>
+<h2 id="macro-tutorials">Macro / Tutorials</h2>
+<p>There will be a macro system unified with the tutorial system
+(<code>lib/script.dart</code> and <code>lib/tutorial_widget.dart</code>
+from <code>spacetime</code>). When a user runs a macro, it executes a
+sequence of steps, pausing to prompt the user to select or place
+required input objects.</p>
+<p>For example, to construct a line perpendicular to a given line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+through a point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>:</p>
+<ol type="1">
+<li><p>Find/place two points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>
+on the line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p></li>
+<li><p>Construct two circles centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+passing through
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+(or two equal-radius circles from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+intersecting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>
+and then equal-radius circles around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>).</p></li>
+<li><p>Find the intersection points of those two circles.</p></li>
+<li><p>Construct the hyperbolic line through those intersection
+points.</p></li>
+</ol>
+<h2 id="todo-next-steps">TODO / Next Steps</h2>
+<h3 id="phase-1-project-initialization-infrastructure-copy">Phase 1:
+Project Initialization &amp; Infrastructure Copy</h3>
+<ul class="task-list">
+<li><p><label><input type="checkbox" checked="" />Research Poincarédisk
+math, compass/circle equivalents, and reference links (documented in
+Overview above).</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Create default Flutter
+project (<code>org.gchouse.hyperbolic</code>) and configure Firebase
+project (<code>fredgc-hyperbolic</code>), Android SHA-1/SHA-256
+fingerprints, and Web/Android OAuth client IDs
+(<code>lib/firebase_options.dart</code>,
+<code>android/app/google-services.json</code>,
+<code>firebase.json</code>, <code>.firebaserc</code>).</label></p></li>
+<li><p><label><input type="checkbox" checked="" />After
+<code>../spacetime</code> code cleanup/refactoring is complete, copy
+core project scaffolding from <code>../spacetime</code> (preserving
+<code>fredgc-hyperbolic</code> OAuth client ID
+<code>1098767857767-r9arrbbj58rdgm0aubck8brhcs5acdae.apps.googleusercontent.com</code>
+in <code>web/index.html</code>):</label></p>
+<ul>
+<li><p>Config &amp; build files: <code>pubspec.yaml</code>,
+<code>analysis_options.yaml</code>, <code>.gitignore</code>,
+<code>.gitallowed</code>, <code>Makefile</code>,
+<code>roll_build_number.sh</code>, <code>json-builder.sh</code>,
+<code>export-icons.py</code>, <code>log_server.py</code>,
+<code>run-local-server.sh</code>,
+<code>run-local-release.sh</code>.</p></li>
+<li><p>Web &amp; Firebase files: <code>web/</code>,
+<code>package.json</code>, <code>html_tweak/</code>.</p></li>
+<li><p>Reusable <code>lib/</code> modules: <code>main.dart</code>,
+<code>my_app.dart</code>, <code>navigation.dart</code>,
+<code>file_manager.dart</code>, <code>file_holder.dart</code>,
+<code>local_file.dart</code>, <code>recent_file.dart</code>,
+<code>drive.dart</code>, <code>upload.dart</code>,
+<code>edit.dart</code>, <code>settings.dart</code>,
+<code>color.dart</code>, <code>name.dart</code>,
+<code>printer.dart</code>, <code>worker.dart</code>,
+<code>splitter.dart</code>, <code>slider.dart</code>,
+<code>animate.dart</code>, <code>help.dart</code>,
+<code>menus.dart</code>, <code>sign_in_button*.dart</code>,
+<code>js_*.dart</code>, <code>webview_*.dart</code>.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" />Rename package from
+<code>spacetime</code> to <code>hyperbolic</code> in
+<code>pubspec.yaml</code>, update <code>mime_type</code> to
+<code>application/hyperbolic</code> in <code>lib/drive.dart</code>, and
+update package imports across <code>lib/</code> and
+<code>test/</code>.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Create new
+<code>icon.xcf</code> for Hyperbolic and generate web/Android
+icons.</label></p></li>
+<li><p><label><input type="checkbox" />Revisit Google Cloud Console
+OAuth Verification Center &amp; Audience settings
+(<code>https://console.cloud.google.com/auth/overview?project=fredgc-hyperbolic</code>)
+to complete app verification (or test-user configuration) for the
+<code>https://www.googleapis.com/auth/drive</code> scope once the app is
+ready.</label></p></li>
+</ul>
+<h3
+id="phase-2-hyperbolic-math-coordinate-transform-libtransform.dart">Phase
+2: Hyperbolic Math &amp; Coordinate Transform
+(<code>lib/transform.dart</code>)</h3>
+<ul class="task-list">
+<li><p><label><input type="checkbox" checked="" />Implement
+<code>HyperbolicPoint</code> / complex disk arithmetic inside
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝔻</mi><annotation encoding="application/x-tex">\mathbb{D}</annotation></semantics></math>:</label></p>
+<ul>
+<li><p>Hyperbolic distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d(u, v)</annotation></semantics></math>
+and pseudo-distance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi>tanh</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t = \tanh(d/2)</annotation></semantics></math>.</p></li>
+<li><p>Möbius transformation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>θ</mi></mrow></msup><mfrac><mrow><mi>z</mi><mo>−</mo><mi>a</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>a</mi><mo accent="true">‾</mo></mover><mi>z</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">z \mapsto e^{i\theta}\frac{z - a}{1 - \bar{a}z}</annotation></semantics></math>
+for hyperbolic translation/rotation of the disk.</p></li>
+<li><p>Geodesic (line) calculation from two points, or from a point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+on a line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+at a specified angle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+(returning either a diameter or an orthogonal Euclidean circle center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>L</mi></msub><annotation encoding="application/x-tex">C_L</annotation></semantics></math>,
+radius
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>L</mi></msub><annotation encoding="application/x-tex">R_L</annotation></semantics></math>,
+and start/sweep angles).</p></li>
+<li><p>Hyperbolic circle conversion between
+<code>(hyperbolicCenter, hyperbolicRadius)</code> and
+<code>(euclideanCenter, euclideanRadius)</code>.</p></li>
+<li><p>Intersection solvers (line-line, line-circle, circle-circle)
+inside the unit disk.</p></li>
+</ul></li>
+<li><p><label><input type="checkbox" checked="" />Update
+<code>CoordinateTransform</code> to map between Hyperbolic Disk
+coordinates, Möbius-transformed view coordinates, and Screen pixel
+coordinates.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Write unit tests in
+<code>test/transform_test.dart</code> verifying distances, isometries,
+orthogonal circles, hyperbolic circle centers, and
+intersections.</label></p></li>
+</ul>
+<h3 id="phase-3-objects-bipartite-constraint-graph-solver">Phase 3:
+Objects, Bipartite Constraint Graph &amp; Solver</h3>
+<ul class="task-list">
+<li><p><label><input type="checkbox" checked="" />Design
+<code>SceneObject</code> base class (<code>PointObject</code>,
+<code>LineObject</code>, <code>CircleObject</code>,
+<code>NumberObject</code>) with <code>name</code>, <code>color</code>,
+<code>locked</code>, and parent <code>Constraint</code>
+reference.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Design
+<code>Constraint</code> base class and concrete constraint types (free
+point, point on object, line through two points, line at angle
+<code>Number</code> through a point on a line, circle by center+point,
+circle by center+radius, intersections, distance/coordinate numbers)
+with JSON serialization.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Implement topological
+forward evaluation and the numerical inverse solver for dragging
+constrained objects while respecting locked objects.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Write unit tests for
+constraint satisfaction, locking, and inverse drag
+updates.</label></p></li>
+</ul>
+<h3 id="phase-4-canvas-rendering-number-list-ui">Phase 4: Canvas
+Rendering &amp; Number List UI</h3>
+<ul class="task-list">
+<li><p><label><input type="checkbox" checked="" />Implement
+<code>DiskPainter</code> (<code>CustomPainter</code>) to draw the
+Poincarédisk boundary, hyperbolic lines/segments, hyperbolic circles,
+points, labels, and selection highlights.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Build the responsive
+layout (<code>SplitterWidget</code>) pairing the Poincarédisk canvas
+with the scrollable <code>NumberObject</code> list and animated
+sliders.</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Add interactive
+construction tools in the toolbar (Create Point, Line, Angle Line,
+Circle, Intersection, Number/Measurement, Lock/Unlock).</label></p></li>
+<li><p><label><input type="checkbox" checked="" />Implement and verify
+file loading and saving for both local storage and Google Drive (with
+<code>application/hyperbolic</code> MIME type).</label></p></li>
+</ul>
+<h3 id="phase-5-implement-tutorials-and-macros">Phase 5: Implement
+Tutorials and Macros</h3>
+<h4 id="proposed-standard-tutorials-for-user-review">Proposed Standard
+Tutorials (For User Review)</h4>
+<ol type="1">
+<li><p><strong><code>01_welcome_to_poincare.md</code> - Welcome to the
+PoincaréDisk</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: The unit disk
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mo stretchy="false" form="prefix">|</mo><mi>z</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt;
+1\}</annotation></semantics></math>, boundary circle at infinity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">\partial \mathbb{D}</annotation></semantics></math>,
+and geodesic lines (circular arcs orthogonal to the boundary circle and
+Euclidean diameters).</p></li>
+<li><p><strong>Activities</strong>: Place points, draw geodesic lines
+and segments, and inspect orthogonal intersections with the boundary
+circle.</p></li>
+<li><p><strong>Takeaway</strong>: Hyperbolic lines appear curved to
+Euclidean eyes, but inside hyperbolic space they represent straight,
+shortest-path geodesics.</p></li>
+</ul></li>
+<li><p><strong><code>02_exponential_distance.md</code> - Distance &amp;
+The Edge of the Universe</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: The hyperbolic distance metric
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mrow><mi>artanh</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v) = 2
+\operatorname{artanh}\left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math>
+and exponential metric expansion near the boundary circle.</p></li>
+<li><p><strong>Activities</strong>: Measure distances with the Distance
+measurement tool, drag points closer to the boundary, and adjust numeric
+sliders.</p></li>
+<li><p><strong>Takeaway</strong>: The boundary circle is infinitely far
+away; an infinite universe is represented faithfully inside a finite
+drawing.</p></li>
+</ul></li>
+<li><p><strong><code>03_mobius_translations.md</code> - Hyperbolic
+Translations &amp; Homogeneity</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: Möbius disk automorphisms
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><mfrac><mrow><mi>z</mi><mo>−</mo><mi>a</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>a</mi><mo accent="true">‾</mo></mover><mi>z</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">z \mapsto \frac{z - a}{1 -
+\bar{a}z}</annotation></semantics></math>. Hyperbolic space is
+homogeneous: every point has identical geometry.</p></li>
+<li><p><strong>Activities</strong>: Use the <strong>Move Disk</strong>
+tool to translate an off-center cluster to the origin; observe the
+preservation of hyperbolic lengths and conformal angles.</p></li>
+<li><p><strong>Takeaway</strong>: Apparent boundary distortion is an
+artifact of Euclidean projection; any point can be centered and viewed
+without distortion.</p></li>
+</ul></li>
+<li><p><strong><code>04_hyperbolic_circles.md</code> - Circles with
+Shifted Centers</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: Hyperbolic circles are Euclidean
+circles, but the Euclidean center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>
+is shifted closer to the origin than the true hyperbolic center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mi>P</mi></mrow><annotation encoding="application/x-tex">C_E = \frac{1 - t^2}{1 - p^2 t^2} P</annotation></semantics></math>.</p></li>
+<li><p><strong>Activities</strong>: Construct hyperbolic circles by
+center and radius, compare hyperbolic vs Euclidean radius, and translate
+the center to the origin to observe
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+align.</p></li>
+<li><p><strong>Takeaway</strong>: The metric gradient shifts the
+Euclidean center while the hyperbolic radius remains constant in all
+directions.</p></li>
+</ul></li>
+<li><p><strong><code>05_parallel_postulate.md</code> - The Failure of
+Euclid’s Fifth Postulate</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: The core difference between Euclidean
+and hyperbolic geometry. Through a point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∉</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \notin L</annotation></semantics></math>,
+there are infinitely many non-intersecting lines.</p></li>
+<li><p><strong>Activities</strong>: Given line
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+and point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+construct the two limiting parallels (asymptotic rays meeting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+at the boundary circle) and the fan of divergent ultraparallel lines
+between them.</p></li>
+<li><p><strong>Takeaway</strong>: Directly experiencing the
+non-Euclidean property that launched modern geometry.</p></li>
+</ul></li>
+<li><p><strong><code>06_triangles_and_defect.md</code> - Triangles &amp;
+The Angle Defect</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: The angle sum in hyperbolic triangles
+is strictly less than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>180</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">180^\circ</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mi>α</mi><mo>&lt;</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\sum \alpha &lt; \pi</annotation></semantics></math>).
+Area is directly proportional to the angle defect:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Area</mtext><mo>=</mo><mi>π</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo>+</mo><mi>γ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\text{Area} = \pi - (\alpha + \beta + \gamma)</annotation></semantics></math>.</p></li>
+<li><p><strong>Activities</strong>: Construct a triangle
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">ABC</annotation></semantics></math>,
+measure the three angles with the Angle tool, drag vertices to vary the
+triangle’s size, and construct an ideal triangle with all vertices on
+the boundary circle
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mi>α</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum \alpha
+= 0</annotation></semantics></math>).</p></li>
+<li><p><strong>Takeaway</strong>: There are no similar triangles of
+different sizes in hyperbolic geometry; scale determines shape and
+area.</p></li>
+</ul></li>
+<li><p><strong><code>07_perpendicular_bisector.md</code> - Classical
+Compass Constructions</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: Classical straightedge-and-compass
+constructions in hyperbolic geometry using intersecting
+circles.</p></li>
+<li><p><strong>Activities</strong>: Construct the perpendicular bisector
+and midpoint of a segment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math>
+by intersecting equal-radius hyperbolic circles centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p></li>
+<li><p><strong>Takeaway</strong>: Neutral geometry constructions from
+Euclid’s Book I hold without modification in hyperbolic space.</p></li>
+</ul></li>
+<li><p><strong><code>08_saccheri_quadrilaterals.md</code> - Saccheri
+&amp; Lambert Quadrilaterals</strong></p>
+<ul>
+<li><p><strong>Concepts</strong>: Quadrilaterals with right angles and
+equal legs whose summit angles are strictly acute
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><msup><mn>90</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">&lt; 90^\circ</annotation></semantics></math>).</p></li>
+<li><p><strong>Activities</strong>: Construct a Saccheri quadrilateral,
+measure summit angles, and observe how the summit curve diverges from a
+geodesic.</p></li>
+<li><p><strong>Takeaway</strong>: Retracing the historical
+investigations of Omar Khayyam, Saccheri, and Lambert.</p></li>
+</ul></li>
+</ol>
+<h4 id="architecture-tasks">Architecture Tasks</h4>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Adapt the script engine
+(<code>lib/script/tutorial_step.dart</code>,
+<code>tutorial_parser.dart</code>,
+<code>tutorial_controller.dart</code>, and
+<code>lib/tutorial_widget.dart</code>) to support hyperbolic objects,
+constraints, tool selection, point placement, dragging, and
+sliders.</label></p></li>
+<li><p><label><input type="checkbox" />Create debug tutorial
+(<code>assets/dev/tutorials/debug_test.md</code>) testing directives:
+<code>reset</code>, <code>setup</code>, <code>object</code>,
+<code>tool</code>, <code>add</code>, <code>select</code>,
+<code>drag</code>, <code>slider</code>, and
+<code>ok</code>.</label></p></li>
+<li><p><label><input type="checkbox" />Connect
+<code>generate_tutorials.py</code> and register the tutorial overlay
+card in <code>AppWidget</code>.</label></p></li>
+<li><p><label><input type="checkbox" />Implement reusable construction
+macros that pause for user selection of inputs (perpendiculars, angle
+bisectors, midpoints, ultraparallels).</label></p></li>
+<li><p><label><input type="checkbox" />Author standard interactive
+tutorials in <code>assets/tutorials/</code>.</label></p></li>
+<li><p><label><input type="checkbox" />Write unit and widget tests
+(<code>test/tutorial_test.dart</code>) verifying directive satisfaction
+and tutorial card interactions.</label></p></li>
+</ul>
+<h3 id="for-first-release">For first release</h3>
+<ul>
+<li><p>announce tool and update main page.</p></li>
+<li><p>update dns entry for gchouse.org</p></li>
+<li><p>Don’t forget to update Google Drive API integration after we’ve
+published the first release. i.e. – upload icons and stuff.</p></li>
+</ul>
+<hr />
+<h2 id="visual-accessibility-verification-checklist">Visual &amp;
+Accessibility Verification Checklist</h2>
+<p>Perform these manual checks across supported locales
+(<code>en</code>, <code>es</code>, <code>de</code>, <code>fr</code>,
+<code>ja</code>, <code>lt</code>, <code>pt</code>, <code>zh</code>) on
+mobile and desktop viewports:</p>
+<ul>
+<li><p><strong>PoincaréDisk Canvas &amp; Tools</strong>:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Verify the unit boundary circle,
+points, lines, segments, and circles render smoothly with accurate color
+swatches in light and dark themes.</label></p></li>
+<li><p><label><input type="checkbox" />Verify the <strong>Move
+Disk</strong> (Möbius translation) gesture drags the disk smoothly
+without boundary deformation or visual stutter.</label></p></li>
+<li><p><label><input type="checkbox" />Verify the
+<strong>Pan/Zoom</strong> and <strong>Reset View</strong> tools
+correctly reset the origin and scale.</label></p></li>
+</ul></li>
+<li><p><strong>Selected Object Properties Bar</strong>:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Select an object and verify the
+top properties banner displays the localized object type, inline name
+editor, color swatch, and lock button.</label></p></li>
+<li><p><label><input type="checkbox" />Check that name editing dialogs
+and color pickers do not cause horizontal overflows on mobile
+viewports.</label></p></li>
+</ul></li>
+<li><p><strong>Numbers Panel &amp; Dedicated Slider</strong>:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Click a numeric parameter in the
+Numbers panel and confirm the bottom slider activates with the parameter
+name and current value.</label></p></li>
+<li><p><label><input type="checkbox" />Drag the slider thumb and verify
+dependent geometric constructions update smoothly in real
+time.</label></p></li>
+</ul></li>
+<li><p><strong>Interactive Tutorials &amp; Documentation</strong>:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Open Tutorial 01 (“Introduction”)
+and verify titles and instructions load in the active language
+(<code>de</code>, <code>es</code>, <code>fr</code>, <code>ja</code>,
+<code>lt</code>, <code>pt</code>, <code>zh</code>).</label></p></li>
+<li><p><label><input type="checkbox" />Open Help dialog and verify all
+four extended guides load correctly:</label></p>
+<ul>
+<li><p><code>overview.html</code>: Poincarédisk model and metric
+theory.</p></li>
+<li><p><code>controls.html</code>: Controls and gestures guide.</p></li>
+<li><p><code>objects.html</code>: Geometric objects guide.</p></li>
+<li><p><code>files.html</code>: File management guide.</p></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Language Menu &amp; Settings</strong>:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Switch to each language from the
+top bar language menu and confirm all UI labels, toolbars, and help tabs
+update immediately.</label></p></li>
+<li><p><label><input type="checkbox" />Switch to <strong>Auto</strong>
+and verify the app reverts cleanly to the system default
+locale.</label></p></li>
+</ul></li>
+<li><p><strong>Touch Targets &amp; Screen Readers</strong>:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" />Verify that toolbar icon buttons
+and color chips have at least 48x48 dp tap padding on touch
+devices.</label></p></li>
+<li><p><label><input type="checkbox" />Enable TalkBack (Android) or
+VoiceOver (iOS/macOS) and confirm screen reader announcements when
+selecting tools and toggling object locks.</label></p></li>
+</ul></li>
+</ul>
+</body>
+</html>

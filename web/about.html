@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>About Hyperbolic (v{{ VERSION }})</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">About Hyperbolic (v{{ VERSION }})</h1>
+</header>
+<p>The <strong>Hyperbolic Drawing Tool</strong> is an interactive
+application designed to construct, visualize, and explore geometric
+diagrams in the Poincarédisk model of hyperbolic geometry.</p>
+<p>It helps you perform classical straightedge-and-compass constructions
+adapted to the Poincarédisk
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>),
+where Euclid’s fifth postulate (the parallel postulate) does not
+hold.</p>
+<p>This application is written in Dart with Flutter—the source code is
+available on GitHub at
+[https://github.com/fredgc/hyperbolic][github].</p>
+<p>Found a bug or have a feature request? [File an issue on
+GitHub][issues].</p>
+<p>Other apps and drawing tools can be found at
+[www.gchouse.org][gchouse].</p>
+<h2 id="privacy-and-data-retention">Privacy and Data Retention</h2>
+<p>This program allows you to customize settings that are saved locally
+on your device (using SharedPreferences / LocalStorage). No personal
+data is collected.</p>
+<p>On Android, local settings are deleted when you uninstall the app. On
+Web, settings are deleted when you clear your browser’s local
+application data.</p>
+<p>Drawings may be downloaded to your local device or saved to your
+Google Drive account. You may also load drawings shared by others, but
+no files are sent to the <code>gchouse.org</code> server.</p>
+<p>[gchouse]: https://www.gchouse.org [github]:
+https://github.com/fredgc/hyperbolic [issues]:
+https://github.com/fredgc/hyperbolic/issues</p>
+</body>
+</html>
