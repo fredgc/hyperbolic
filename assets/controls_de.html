@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Steuerung und Navigation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Steuerung und Navigation</h1>
+</header>
+<p>Die Anwendung bietet intuitive Werkzeuge in der Symbolleiste,
+interaktive Gesten auf der Zeichenfläche und einen Schieberegler zur
+Manipulation hyperbolischer Diagramme:</p>
+<h2 id="ansichtsnavigation">1. Ansichtsnavigation</h2>
+<ul>
+<li><p><strong>Möbius-Translation (Scheibe verschieben)</strong>: Wählen
+Sie das Werkzeug <strong>Scheibe verschieben</strong> und ziehen Sie an
+einer beliebigen Stelle auf der Zeichenfläche. Die hyperbolische Ebene
+wird durch Scheibenautomorphismen (Isometrien) gleichmäßig verschoben,
+sodass der Punkt unter dem Zeiger mitgeführt wird, während alle
+hyperbolischen Längen, Winkel und Kreise erhalten bleiben.</p></li>
+<li><p><strong>Euklidische Verschiebung &amp; Zoom</strong>:</p>
+<ul>
+<li><p><strong>Mausrad / Touchpad</strong>: Scrollen oder
+zusammenziehen, um stufenlos hinein- oder herauszuzoomen.</p></li>
+<li><p><strong>Verschieben/Zoom-Werkzeug</strong>: Wählen Sie das
+Werkzeug <strong>Verschieben/Zoom</strong> und ziehen Sie, um den
+euklidischen Bildausschnitt zu verschieben.</p></li>
+<li><p><strong>Ansicht zurücksetzen</strong>: Klicken Sie in der
+Symbolleiste oder im Menü Ansicht auf <strong>Ansicht
+zurücksetzen</strong>, um zu Standardursprung und -zoom
+zurückzukehren.</p></li>
+</ul></li>
+</ul>
+<h2 id="auswahl-objektbearbeitung">2. Auswahl &amp;
+Objektbearbeitung</h2>
+<ul>
+<li><p><strong>Objekte auswählen</strong>: Wählen Sie das Werkzeug
+<strong>Auswählen</strong> und klicken Sie auf einen Punkt, eine
+Geodäte, einen Kreis oder eine Zahl.</p></li>
+<li><p><strong>Eigenschaftenleiste</strong>: Wenn ein Objekt ausgewählt
+ist, erscheint ein Bannerüber der Zeichenfläche mit:</p>
+<ul>
+<li><p>Typ-Indikator des Objekts.</p></li>
+<li><p>Direkt bearbeitbares Feld <strong>Name</strong> (Tippen zum
+Bearbeiten mit Rückgängig/Wiederholen).</p></li>
+<li><p>Interaktives Farbauswahlfeld zur Wahl einer beliebigen
+benutzerdefinierten Farbe.</p></li>
+<li><p>Umschalter <strong>Sperren / Entsperren</strong> und Schaltfläche
+<strong>Löschen</strong>.</p></li>
+</ul></li>
+</ul>
+<h2 id="interaktiver-schieberegler">3. Interaktiver Schieberegler</h2>
+<ul>
+<li><p>Befindet sich direkt unter der Poincaré-Kreisscheibe.</p></li>
+<li><p><strong>Inaktiver Zustand</strong>: Wenn keine Zahl ausgewählt
+ist, ist der Schieberegler deaktiviert und zeigt keine
+Beschriftung.</p></li>
+<li><p><strong>Aktiver Zustand</strong>: Durch Klicken auf einen
+numerischen Parameter im Zahlenfeld wird der Schieberegler an diesen
+gebunden; Name, Bereich und aktueller Wert werden aktualisiert.</p></li>
+<li><p>Ziehen Sie den Regler oder verwenden Sie die Pfeilschaltflächen,
+um den Parameter stufenlos anzupassen und abhängige geometrische Objekte
+in Echtzeit zu beobachten.</p></li>
+</ul>
+<h2 id="einstellungen-hilfe">4. Einstellungen &amp; Hilfe</h2>
+<ul>
+<li><p><strong>Einstellungen</strong>: Klicken Sie auf das
+Zahnrad-Symbol in der oberen Leiste, um visuelle Designs, Farben und
+Einstellungen anzupassen. Einstellungen bleiben sitzungsübergreifend
+erhalten.</p></li>
+<li><p><strong>Hilfe-Menü</strong>: Klicken Sie auf das
+Fragezeichen-Symbol (?) in der oberen Leiste, umÜber-Informationen,
+Konstruktionsanleitungen und Entwicklerdokumentation
+anzuzeigen.</p></li>
+</ul>
+</body>
+</html>

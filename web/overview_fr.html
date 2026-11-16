@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Aperçu de la géométrie hyperbolique</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Aperçu de la géométrie hyperbolique</h1>
+</header>
+<p>L’outil de dessin hyperbolique est un canevas interactif pour
+construire et explorer la géométrie hyperbolique dans le <strong>modèle
+du disque de Poincaré</strong>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>).</p>
+<p>Dans le disque de Poincaré, tous les postulats d’Euclide restent
+valables sauf le postulat des parallèles :étant donnéune droite
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+et un point extérieur
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∉</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \notin L</annotation></semantics></math>,
+il existe une infinitéde droites distinctes passant par
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+qui ne coupent jamais
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p>
+<h2 id="le-modèle-du-disque-de-poincaré">1. Le modèle du disque de
+Poincaré</h2>
+<ul>
+<li><p><strong>Points</strong> : Tous les points de l’espace
+hyperbolique correspondent aux points situésàl’intérieur du disque
+unitéouvert
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| &lt; 1</annotation></semantics></math>.
+Les points sur le cercle frontière
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| = 1</annotation></semantics></math>
+sont les pointsàl’infini (points idéaux
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">\partial \mathbb{D}</annotation></semantics></math>).</p></li>
+<li><p><strong>Droites (géodésiques)</strong> : Les droites
+hyperboliques sont représentées par des arcs de cercle euclidiens
+orthogonaux
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>90</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">90^\circ</annotation></semantics></math>)
+au cercle frontière, ainsi que par les diamètres euclidiens passant par
+l’origine.</p></li>
+<li><p><strong>Angles conformes</strong> : Le disque de Poincaréest
+conforme : l’angle entre deux droites hyperboliques estégalàl’angle
+euclidien entre leurs vecteurs tangents au point
+d’intersection.</p></li>
+</ul>
+<h2 id="distance-et-métrique-hyperboliques">2. Distance et métrique
+hyperboliques</h2>
+<p>Àmesure que les points approchent de la frontière
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| \to 1</annotation></semantics></math>),
+les distances hyperboliques croissent exponentiellement vers
+l’infini.</p>
+<p>Pour deux points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">u, v \in \mathbb{D}</annotation></semantics></math>
+(nombres complexes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">x + iy</annotation></semantics></math>),
+la <strong>distance hyperbolique</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v)</annotation></semantics></math>
+est :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>arcosh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>u</mi><mo>−</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>u</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>artanh</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v) = \operatorname{arcosh}\left(1 + \frac{2|u - v|^2}{(1 - |u|^2)(1 - |v|^2)}\right) = 2 \operatorname{artanh}\left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math></p>
+<p>On utilise fréquemment la distance pseudohyperbolique
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t = \tanh(d(u, v) / 2) \in [0, 1)</annotation></semantics></math>
+:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">t = \left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math></p>
+<p>Pour un point situéàun rayon euclidien
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">r = |z|</annotation></semantics></math>
+de l’origine :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mo>ln</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>r</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>artanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⇔</mo><mi>r</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\rho = \ln\left(\frac{1+r}{1-r}\right) = 2\operatorname{artanh}(r) \iff r = \tanh(\rho / 2)</annotation></semantics></math></p>
+<p>Le bord du disque se trouve doncàune distance infinie.</p>
+<h2 id="cercles-hyperboliques">3. Cercles hyperboliques</h2>
+<p>Un <strong>cercle hyperbolique</strong> (lieu des points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">Q \in \mathbb{D}</annotation></semantics></math>
+situésàune distance hyperbolique
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+d’un centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">P \in \mathbb{D}</annotation></semantics></math>)
+est <strong>un cercle euclidien ordinaire</strong> entièrement contenu
+dans le disque unité!</p>
+<p>Cependant, sauf si
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+estàl’origine, le <strong>centre euclidien</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>
+du cercle est décalévers l’origine par rapport au véritable
+<strong>centre hyperbolique</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+en raison du gradient métrique.</p>
+<p>Pour un centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">p = |P|</annotation></semantics></math>)
+et un rayon
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">t = \tanh(\rho / 2)</annotation></semantics></math>)
+:</p>
+<ul>
+<li><p><strong>Centre euclidien</strong> :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mi>P</mi></mrow><annotation encoding="application/x-tex">C_E = \frac{1 - t^2}{1 - p^2 t^2} P</annotation></semantics></math></p></li>
+<li><p><strong>Rayon euclidien</strong> :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">R_E = \frac{(1 - p^2) t}{1 - p^2 t^2}</annotation></semantics></math></p></li>
+</ul>
+<h2 id="constructions-à-la-règle-et-au-compas">4. Constructions à la
+règle et au compas</h2>
+<p>Les constructions classiques s’adaptent naturellementàl’espace
+hyperbolique :</p>
+<h3 id="compas-hyperbolique">Compas hyperbolique</h3>
+<ul>
+<li><p><strong>Centre + point sur le cercle (compas pliable)</strong>
+:Àpartir du centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+et du point
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
+on calcule
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>P</mi><mo>−</mo><mi>Q</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>P</mi><mo accent="true">‾</mo></mover><mi>Q</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">t = \left|\frac{P - Q}{1 - \bar{P}Q}\right|</annotation></semantics></math>,
+puis on trace le cercle euclidien de centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>
+et de rayon
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>E</mi></msub><annotation encoding="application/x-tex">R_E</annotation></semantics></math>.</p></li>
+<li><p><strong>Centre + rayon (compas rigide)</strong> : Avec un centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+et un rayon numérique
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+ou deux points
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>
+définissant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\rho = d(A, B)</annotation></semantics></math>,
+on trace le cercle hyperbolique de centre
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+avec ce rayon exact.</p></li>
+</ul>
+<h3 id="droite-hyperbolique-règle">Droite hyperbolique (règle)</h3>
+<p>Par deux points distincts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">P, Q \in \mathbb{D}</annotation></semantics></math>,
+il passe une unique géodésique hyperbolique :</p>
+<ul>
+<li><p>Si
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P, Q</annotation></semantics></math>
+et l’origine sont alignés
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>x</mi></msub><msub><mi>Q</mi><mi>y</mi></msub><mo>−</mo><msub><mi>P</mi><mi>y</mi></msub><msub><mi>Q</mi><mi>x</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">P_x Q_y - P_y Q_x = 0</annotation></semantics></math>),
+la droite est le diamètre euclidien passant par
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+et
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p></li>
+<li><p>Sinon, on calcule l’inverse de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+par rapport au cercle unité:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>′</mi><mo>=</mo><mi>P</mi><mi>/</mi><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">P&#39; = P / |P|^2</annotation></semantics></math>.
+L’unique cercle euclidien passant par
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi><mo>,</mo><mi>P</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">P, Q, P&#39;</annotation></semantics></math>
+coupe le cercle unitéorthogonalement
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>C</mi><mi>L</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo>=</mo><msubsup><mi>R</mi><mi>L</mi><mn>2</mn></msubsup><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|C_L|^2 = R_L^2 + 1</annotation></semantics></math>).
+L’arc intérieur forme la droite hyperbolique.</p></li>
+</ul>
+<h2 id="isométries-et-transformations-de-möbius">5. Isométries et
+transformations de Möbius</h2>
+<p>L’espace hyperbolique est homogène : chaque point partage la même
+géométrie locale. Les déplacements sont des automorphismes du disque
+(transformations de Möbius) :</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>θ</mi></mrow></msup><mfrac><mrow><mi>z</mi><mo>−</mo><mi>a</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>a</mi><mo accent="true">‾</mo></mover><mi>z</mi></mrow></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">|</mo><mi>a</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="0.278em"></mspace><mi>θ</mi><mo>∈</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">z \mapsto e^{i\theta} \frac{z - a}{1 - \bar{a} z}, \quad |a| &lt; 1, \; \theta \in \mathbb{R}</annotation></semantics></math></p>
+<p>Ces transformations préservent les distances, les cercles et les
+angles.</p>
+<h2 id="références-et-lectures-complémentaires">6. Références et
+lectures complémentaires</h2>
+<ul>
+<li><p><a
+href="https://fr.wikipedia.org/wiki/Disque_de_Poincar%C3%A9">Wikipédia :
+Disque de Poincaré</a> —Formules analytiques de métrique, cercles et
+géodésiques.</p></li>
+<li><p><a
+href="https://fr.wikipedia.org/wiki/G%C3%A9om%C3%A9trie_hyperbolique">Wikipédia
+: Géométrie hyperbolique</a> —Principes fondamentaux et propriétés des
+espaces hyperboliques.</p></li>
+<li><p><a href="https://www.cs.unm.edu/~joel/NonEuclid/">NonEuclid :
+Informations interactives</a> —Référence interactive pour les
+constructionsàla règle et au compas.</p></li>
+</ul>
+</body>
+</html>

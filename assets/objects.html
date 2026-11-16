@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Geometric Objects Guide</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Geometric Objects Guide</h1>
+</header>
+<p>The Hyperbolic Drawing Tool models geometric entities and numeric
+parameters within the Poincarédisk model
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>.</p>
+<h2 id="points">1. Points</h2>
+<ul>
+<li><p><strong>Free Points</strong>: Select the <strong>Point</strong>
+tool and click anywhere inside the unit disk. Free points can be dragged
+anywhere inside the disk.</p></li>
+<li><p><strong>Constrained Points</strong>: Points can be created as the
+intersection of two lines or circles using the
+<strong>Intersection</strong> tool.</p></li>
+<li><p><strong>Editing Points</strong>: Click a point with the
+<strong>Select</strong> tool to display its properties bar. You can
+rename the point, change its color using the color picker, or toggle its
+lock state.</p></li>
+</ul>
+<h2 id="geodesic-lines-segments">2. Geodesic Lines &amp; Segments</h2>
+<ul>
+<li><p><strong>Hyperbolic Lines</strong>: Select the
+<strong>Line</strong> tool, then click two existing points (or click
+empty locations to create points). The geodesic line is drawn spanning
+across the disk orthogonally to the boundary circle.</p></li>
+<li><p><strong>Segments</strong>: Select the <strong>Segment</strong>
+tool and click two endpoints to create a finite geodesic
+segment.</p></li>
+<li><p><strong>Style &amp; Color</strong>: Select any line or segment to
+rename it or customize its stroke color in the selected object
+properties bar.</p></li>
+</ul>
+<h2 id="hyperbolic-circles">3. Hyperbolic Circles</h2>
+<ul>
+<li><p><strong>Creating Circles</strong>: Select the
+<strong>Circle</strong> tool. Click the first point to serve as the
+hyperbolic center, then click a second point to set the radius.</p></li>
+<li><p><strong>Properties</strong>: In the Poincarémodel, hyperbolic
+circles render as Euclidean circles whose center is offset toward the
+disk origin.</p></li>
+</ul>
+<h2 id="number-objects-measurements">4. Number Objects &amp;
+Measurements</h2>
+<ul>
+<li><p><strong>Distance</strong>: Select the <strong>Distance</strong>
+tool and click two points. A new number representing the hyperbolic
+distance is added to the parameter list.</p></li>
+<li><p><strong>Angle</strong>: Select the <strong>Angle</strong> tool
+and click three points to measure the conformal hyperbolic
+angle.</p></li>
+<li><p><strong>Free Parameters</strong>: In the Numbers panel, click
+<strong>+</strong> to add a free scalar parameter.</p></li>
+<li><p><strong>Slider Adjustment</strong>: Click any number in the panel
+to activate the main interactive slider located beneath the
+canvas.</p></li>
+</ul>
+</body>
+</html>

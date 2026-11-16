@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ファイル管理</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ファイル管理</h1>
+</header>
+<p>左側のドロワー（メニューアイコンから開く）には、ファイルおよびクリップボードに関するオプションが用意されています：</p>
+<h2 id="ファイル操作">1. ファイル操作</h2>
+<ul>
+<li><p><strong>新規作成</strong>:現在のシーンをクリアし、白紙のキャンバスで描画を開始します。</p></li>
+<li><p><strong>開く</strong>:次のソースから図面を読み込みます：</p>
+<ul>
+<li><p><strong>ローカルデータ</strong>:端末のストレージからファイルを選択します。</p></li>
+<li><p><strong>Googleドライブ</strong>:
+Googleドライブに同期された図面にアクセスします。</p></li>
+<li><p><strong>クリップボードから読み込む</strong>:図面データをテキスト形式でコピーし、アプリ内に貼り付けて開くことができます。</p></li>
+</ul></li>
+<li><p><strong>保存/名前を付けて保存</strong>:現在の図面を端末ローカル、Googleドライブ、またはクリップボードに保存します。</p></li>
+<li><p><strong>共有/エクスポート</strong>:図面データをクリップボードへ出力、またはJSONファイルとしてダウンロードします。</p></li>
+</ul>
+<h2 id="未保存の変更とチェックポイント">2.
+未保存の変更とチェックポイント</h2>
+<p>図面に変更が加えられると、未保存であることを示すインジケーターが表示されます。アプリを閉じたり別の画面へ移動する際に、保存の確認が行われます。最後に保存した
+状態まで操作を「元に戻す」と、未保存状態は解除されます。</p>
+</body>
+</html>

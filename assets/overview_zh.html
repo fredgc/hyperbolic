@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>双曲几何概述</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">双曲几何概述</h1>
+</header>
+<p>双曲几何作图工具是用于在<strong>庞加莱圆盘模型</strong>（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>）中构建与探索双曲
+几何的交互式画布。</p>
+<p>在庞加莱圆盘中，欧几里得中立几何公理（不包含平行公设）全部成立，但平行公设不成立：给定一条直线<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>以及线外一点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∉</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \notin L</annotation></semantics></math>，存在无数条穿过
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>且永不与<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>相交的直线。</p>
+<h2 id="庞加莱圆盘模型">1. 庞加莱圆盘模型</h2>
+<ul>
+<li><p><strong>点</strong>：双曲空间中的所有点对应于开单位圆盘<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| &lt; 1</annotation></semantics></math>内部的点。单位圆边界<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| = 1</annotation></semantics></math>上的点为无穷远点（理想边界点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">\partial \mathbb{D}</annotation></semantics></math>）。</p></li>
+<li><p><strong>直线（测地线）</strong>：双曲直线表示为与单位圆以直角（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>90</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">90^\circ</annotation></semantics></math>）相交的欧几里得圆弧，以及穿过原点的欧几里得直径。</p></li>
+<li><p><strong>保角性（保角度）</strong>：庞加莱圆盘模型具有保角性：两条双曲直线之间的夹角等于它们在交点处切向量之间的欧几里得夹角。</p></li>
+</ul>
+<h2 id="双曲距离与度量">2. 双曲距离与度量</h2>
+<p>随着点接近单位圆盘边界（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| \to 1</annotation></semantics></math>），双曲距离呈指数级增长至无穷大。</p>
+<p>对于任意两点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">u, v \in \mathbb{D}</annotation></semantics></math>（复数<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">x + iy</annotation></semantics></math>），<strong>双曲距离</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v)</annotation></semantics></math>为：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>arcosh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>u</mi><mo>−</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>u</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>artanh</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v) = \operatorname{arcosh}\left(1 + \frac{2|u - v|^2}{(1 - |u|^2)(1 - |v|^2)}\right) = 2 \operatorname{artanh}\left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math></p>
+<p>通常使用伪双曲距离<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t = \tanh(d(u, v) / 2) \in [0, 1)</annotation></semantics></math>进行代数运算：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">t = \left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math></p>
+<p>对于距原点欧几里得半径为<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">r = |z|</annotation></semantics></math>的点：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mo>ln</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>r</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>artanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⇔</mo><mi>r</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\rho = \ln\left(\frac{1+r}{1-r}\right) = 2\operatorname{artanh}(r) \iff r = \tanh(\rho / 2)</annotation></semantics></math></p>
+<p>由于边界附近的距离无限拉伸，圆盘边缘位于无穷远处。</p>
+<h2 id="双曲圆">3. 双曲圆</h2>
+<p><strong>双曲圆</strong>（所有与双曲圆心<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">P \in \mathbb{D}</annotation></semantics></math>的双曲距离为<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>的点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">Q \in \mathbb{D}</annotation></semantics></math>的轨迹）是完全落在单位圆盘
+内部的<strong>普通欧几里得圆</strong>！</p>
+<p>然而，除非<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>位于原点，否则由于度量梯度的存在，该圆的<strong>欧几里得圆心</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>相对于真实的<strong>双曲圆心</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>会向原点方向偏移。</p>
+<p>给定双曲圆心<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">p = |P|</annotation></semantics></math>）与双曲半径<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>（<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">t = \tanh(\rho / 2)</annotation></semantics></math>）：</p>
+<ul>
+<li><p><strong>欧几里得圆心</strong>：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mi>P</mi></mrow><annotation encoding="application/x-tex">C_E = \frac{1 - t^2}{1 - p^2 t^2} P</annotation></semantics></math></p></li>
+<li><p><strong>欧几里得半径</strong>：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">R_E = \frac{(1 - p^2) t}{1 - p^2 t^2}</annotation></semantics></math></p></li>
+</ul>
+<h2 id="尺规作图">4. 尺规作图</h2>
+<p>经典尺规作图可自然拓展到双曲几何中：</p>
+<h3 id="双曲圆规">双曲圆规</h3>
+<ul>
+<li><p><strong>圆心+圆上一点（可折叠圆规）</strong>：给定圆心<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>和点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>，计算<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>P</mi><mo>−</mo><mi>Q</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>P</mi><mo accent="true">‾</mo></mover><mi>Q</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">t = \left|\frac{P - Q}{1 - \bar{P}Q}\right|</annotation></semantics></math>，绘制圆心为<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>、半径为<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>E</mi></msub><annotation encoding="application/x-tex">R_E</annotation></semantics></math>的欧几里得圆。</p></li>
+<li><p><strong>圆心+半径/转移距离</strong>：给定圆心<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>和数值半径<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>（或参考点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>），构造以此半径为双曲半径的圆。</p></li>
+</ul>
+<h3 id="双曲直线直尺">双曲直线（直尺）</h3>
+<p>穿过任意两个不同点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">P, Q \in \mathbb{D}</annotation></semantics></math>，存在唯一双曲测地线：</p>
+<ul>
+<li><p>若<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P, Q</annotation></semantics></math>与原点共线，则该线为穿过原点的欧几里得直径。</p></li>
+<li><p>否则，对<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>作关于单位圆的反演点<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>′</mi><mo>=</mo><mi>P</mi><mi>/</mi><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">P&#39; = P / |P|^2</annotation></semantics></math>。穿过<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi><mo>,</mo><mi>P</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">P, Q, P&#39;</annotation></semantics></math>的欧几里得圆与单位圆正交，圆盘内的弧即为双曲直线。</p></li>
+</ul>
+<h2 id="等距变换与莫比乌斯变换">5. 等距变换与莫比乌斯变换</h2>
+<p>双曲空间是均匀的：每个点具有相同的局部几何性质。平移与旋转由圆盘自同构（莫比乌斯变换）表示：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>θ</mi></mrow></msup><mfrac><mrow><mi>z</mi><mo>−</mo><mi>a</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>a</mi><mo accent="true">‾</mo></mover><mi>z</mi></mrow></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">|</mo><mi>a</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="0.278em"></mspace><mi>θ</mi><mo>∈</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">z \mapsto e^{i\theta} \frac{z - a}{1 - \bar{a} z}, \quad |a| &lt; 1, \; \theta \in \mathbb{R}</annotation></semantics></math></p>
+<p>这些变换保持双曲距离、圆以及保角性。</p>
+<h2 id="参考文献">6. 参考文献</h2>
+<ul>
+<li><p><a
+href="https://zh.wikipedia.org/wiki/%E5%BA%9E%E5%8A%A0%E8%8E%B1%E5%9C%86%E7%9B%98%E6%A8%A1%E5%9E%8B">维基百科：庞加莱圆盘模型</a>
+—距离、圆与直线的解析公式。</p></li>
+<li><p><a href="https://www.cs.unm.edu/~joel/NonEuclid/">NonEuclid
+交互参考</a>—双曲尺规作图交互指南。</p></li>
+</ul>
+</body>
+</html>

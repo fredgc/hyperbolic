@@ -1,0 +1,754 @@
+{
+  "@@locale": "en",
+  "aboutHyperbolic": "About Hyperbolic",
+  "@aboutHyperbolic": {
+    "description": "Navigation title for About page"
+  },
+  "addFreeParameterTooltip": "Add Free Parameter",
+  "@addFreeParameterTooltip": {
+    "description": "Tooltip for adding a new free numeric parameter"
+  },
+  "appTitle": "Hyperbolic Geometry Drawing Tool",
+  "@appTitle": {
+    "description": "Main application title"
+  },
+  "appVersion": "About Hyperbolic v2.0.0+5",
+  "@appVersion": {
+    "description": "About menu entry title with version"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button label"
+  },
+  "chooseAFile": "Choose a File",
+  "@chooseAFile": {
+    "description": "Title of file chooser dialog"
+  },
+  "clearCacheAndReload": "Clear Cache & Reload App",
+  "@clearCacheAndReload": {
+    "description": "Button to clear browser cache and reload web app"
+  },
+  "closeTooltip": "Close",
+  "@closeTooltip": {
+    "description": "Tooltip for close buttons"
+  },
+  "colorForNewObjectsTooltip": "Color for New Objects",
+  "@colorForNewObjectsTooltip": {
+    "description": "Tooltip for default color picker in toolbar"
+  },
+  "confirmPropertiesTitle": "Confirm Properties Before Saving",
+  "@confirmPropertiesTitle": {
+    "description": "Title of dialog confirming file title and description before saving"
+  },
+  "copyAsUrl": "Copy as URL",
+  "@copyAsUrl": {
+    "description": "Checkbox label to copy scene serialized as URL"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Generic delete button label"
+  },
+  "deleteLocalFileTooltip": "Delete local file",
+  "@deleteLocalFileTooltip": {
+    "description": "Tooltip for deleting a locally stored file"
+  },
+  "deleteParameterTooltip": "Delete parameter",
+  "@deleteParameterTooltip": {
+    "description": "Tooltip for removing a numeric parameter"
+  },
+  "deleteSelectedTooltip": "Delete Selected",
+  "@deleteSelectedTooltip": {
+    "description": "Tooltip for deleting currently selected object"
+  },
+  "descriptionLabel": "Description",
+  "@descriptionLabel": {
+    "description": "Label for file description field"
+  },
+  "deselectTooltip": "Deselect",
+  "@deselectTooltip": {
+    "description": "Tooltip to clear current selection"
+  },
+  "discard": "Discard",
+  "@discard": {
+    "description": "Button label to discard unsaved changes"
+  },
+  "done": "Done",
+  "@done": {
+    "description": "Done button label"
+  },
+  "downloadToFile": "Download to file",
+  "@downloadToFile": {
+    "description": "Button to save drawing to a file download"
+  },
+  "drawingTitleLabel": "Drawing Title",
+  "@drawingTitleLabel": {
+    "description": "Input decoration label for drawing title"
+  },
+  "editDescription": "Edit Description",
+  "@editDescription": {
+    "description": "Menu item to edit drawing description"
+  },
+  "editJsonSyntaxSubtitle": "Correct syntax or structure errors below and click Validate & Load.",
+  "@editJsonSyntaxSubtitle": {
+    "description": "Subtitle instructions in JSON editor dialog"
+  },
+  "editJsonSyntaxTitle": "Edit JSON Syntax",
+  "@editJsonSyntaxTitle": {
+    "description": "Title of JSON editor dialog"
+  },
+  "editPropertiesTitle": "Edit Properties",
+  "@editPropertiesTitle": {
+    "description": "Title of properties editing dialog"
+  },
+  "enterValidJsonHint": "Enter valid JSON drawing syntax...",
+  "@enterValidJsonHint": {
+    "description": "Hint text in JSON editor input field"
+  },
+  "errorLoadingFile": "Error Loading File",
+  "@errorLoadingFile": {
+    "description": "Header title when file loading fails"
+  },
+  "expandErrorDetails": "Expand Error Details",
+  "@expandErrorDetails": {
+    "description": "Expansion tile label for technical error information"
+  },
+  "failedToLoadFile": "Failed to load {name}",
+  "@failedToLoadFile": {
+    "description": "Error message when a file fails to load",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "fileManagement": "File Management",
+  "@fileManagement": {
+    "description": "Navigation item for file management guide"
+  },
+  "helpAndDocs": "Help & Docs",
+  "@helpAndDocs": {
+    "description": "Title of help and documentation screen"
+  },
+  "helpAndGuidesTooltip": "Help & Guides",
+  "@helpAndGuidesTooltip": {
+    "description": "Tooltip for help popup menu button in app bar"
+  },
+  "helpControlsGuide": "Controls & Tools Guide",
+  "@helpControlsGuide": {
+    "description": "Menu item opening controls guide"
+  },
+  "helpDeveloperDocs": "Developer Docs",
+  "@helpDeveloperDocs": {
+    "description": "Menu item opening developer documentation"
+  },
+  "helpMenu": "Help Menu",
+  "@helpMenu": {
+    "description": "Title of drawer help menu"
+  },
+  "helpObjectsGuide": "Geometric Objects Guide",
+  "@helpObjectsGuide": {
+    "description": "Menu item opening objects guide"
+  },
+  "helpOverview": "Help Overview",
+  "@helpOverview": {
+    "description": "Menu item opening help overview"
+  },
+  "hyperbolicGeometry": "Hyperbolic Geometry",
+  "@hyperbolicGeometry": {
+    "description": "Navigation item for hyperbolic geometry overview"
+  },
+  "hyperbolicObjects": "Hyperbolic Objects",
+  "@hyperbolicObjects": {
+    "description": "Navigation item for hyperbolic objects guide"
+  },
+  "initializingApp": "Initializing App...",
+  "@initializingApp": {
+    "description": "Status text while application initializes"
+  },
+  "initializingSettings": "Initializing Settings...",
+  "@initializingSettings": {
+    "description": "Status text while settings load"
+  },
+  "languageAuto": "Auto",
+  "@languageAuto": {
+    "description": "Automatic system locale option"
+  },
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "English language option"
+  },
+  "languageSpanish": "Español",
+  "@languageSpanish": {
+    "description": "Spanish language option"
+  },
+  "legacyFileFormatMessage": "This file is in an older hyperbolic format. It will be automatically upgraded when saved.",
+  "@legacyFileFormatMessage": {
+    "description": "Notice when opening legacy scene files"
+  },
+  "legacyFileFormatTitle": "Legacy File Format",
+  "@legacyFileFormatTitle": {
+    "description": "Title of legacy file notification dialog"
+  },
+  "loadingFile": "Loading {name}...",
+  "@loadingFile": {
+    "description": "Status message while loading a file",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "loadFromDrive": "Load from Drive",
+  "@loadFromDrive": {
+    "description": "Title of Google Drive load tab"
+  },
+  "lockTooltip": "Lock",
+  "@lockTooltip": {
+    "description": "Tooltip to lock an object"
+  },
+  "menuCloseMenu": "Close Menu",
+  "@menuCloseMenu": {
+    "description": "Tooltip to close menu drawer"
+  },
+  "menuCopy": "Copy",
+  "@menuCopy": {
+    "description": "Copy menu action"
+  },
+  "menuCut": "Cut",
+  "@menuCut": {
+    "description": "Cut menu action"
+  },
+  "menuDelete": "Delete",
+  "@menuDelete": {
+    "description": "Delete menu action"
+  },
+  "menuEdit": "Edit",
+  "@menuEdit": {
+    "description": "Edit top menu"
+  },
+  "menuFile": "File",
+  "@menuFile": {
+    "description": "File top menu"
+  },
+  "menuLogOut": "Log Out",
+  "@menuLogOut": {
+    "description": "Log out from cloud services"
+  },
+  "menuNew": "New",
+  "@menuNew": {
+    "description": "New drawing menu action"
+  },
+  "menuOpen": "Open",
+  "@menuOpen": {
+    "description": "Open drawing menu action"
+  },
+  "menuPaste": "Paste",
+  "@menuPaste": {
+    "description": "Paste menu action"
+  },
+  "menuRedo": "Redo",
+  "@menuRedo": {
+    "description": "Redo menu action"
+  },
+  "menuReload": "Reload",
+  "@menuReload": {
+    "description": "Reload current file menu action"
+  },
+  "menuResetMobius": "Reset Möbius Translation",
+  "@menuResetMobius": {
+    "description": "Menu action to reset hyperbolic translation"
+  },
+  "menuResetView": "Reset View",
+  "@menuResetView": {
+    "description": "Menu action to reset Euclidean zoom and pan"
+  },
+  "menuSave": "Save",
+  "@menuSave": {
+    "description": "Save drawing menu action"
+  },
+  "menuSaveAs": "Save As",
+  "@menuSaveAs": {
+    "description": "Save As drawing menu action"
+  },
+  "menuShare": "Share",
+  "@menuShare": {
+    "description": "Share drawing menu action"
+  },
+  "menuToggleAxes": "Toggle Axes",
+  "@menuToggleAxes": {
+    "description": "Menu action to toggle Poincaré disk axes"
+  },
+  "menuTutorials": "Tutorials",
+  "@menuTutorials": {
+    "description": "Tutorials menu title"
+  },
+  "menuUndo": "Undo",
+  "@menuUndo": {
+    "description": "Undo menu action"
+  },
+  "menuView": "View",
+  "@menuView": {
+    "description": "View top menu"
+  },
+  "nameDrawingPrompt": "Give your drawing a title before saving:",
+  "@nameDrawingPrompt": {
+    "description": "Prompt message in name dialog"
+  },
+  "nameLabel": "Name",
+  "@nameLabel": {
+    "description": "Label for name field"
+  },
+  "nameYourDrawing": "Name Your Drawing",
+  "@nameYourDrawing": {
+    "description": "Title of name dialog"
+  },
+  "newDiagram": "New Diagram",
+  "@newDiagram": {
+    "description": "Button to create a blank new diagram"
+  },
+  "newFile": "New File",
+  "@newFile": {
+    "description": "Button label to create a new file"
+  },
+  "newLocalFile": "New Local File",
+  "@newLocalFile": {
+    "description": "Button label to create a new local file"
+  },
+  "noParametersMessage": "No number objects in scene.\nClick + to add a free parameter or\nuse Measurement tools on canvas.",
+  "@noParametersMessage": {
+    "description": "Placeholder message in empty parameters panel"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button label"
+  },
+  "openDrawerTooltip": "Open Menu",
+  "@openDrawerTooltip": {
+    "description": "Tooltip for drawer hamburger menu icon"
+  },
+  "overview": "Overview",
+  "@overview": {
+    "description": "Navigation item for overview guide"
+  },
+  "parametersTitle": "Parameters",
+  "@parametersTitle": {
+    "description": "Title of numeric parameters panel"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Navigation title for Privacy Policy"
+  },
+  "promptAngleBisectorFirst": "Select first point on ray 1",
+  "@promptAngleBisectorFirst": {
+    "description": "Prompt for angle bisector first leg point"
+  },
+  "promptAngleBisectorSecond": "Select point on ray 2",
+  "@promptAngleBisectorSecond": {
+    "description": "Prompt for angle bisector second leg point"
+  },
+  "promptAngleBisectorVertex": "Select angle vertex point",
+  "@promptAngleBisectorVertex": {
+    "description": "Prompt for angle bisector vertex point"
+  },
+  "promptCircleCenter": "Select center point (or click canvas)",
+  "@promptCircleCenter": {
+    "description": "Prompt for circle center point"
+  },
+  "promptCircleCircumference": "Select point on circumference (or click canvas)",
+  "@promptCircleCircumference": {
+    "description": "Prompt for circle circumference point"
+  },
+  "promptCircleRadiusNumber": "Select a radius Number object in the panel",
+  "@promptCircleRadiusNumber": {
+    "description": "Prompt to pick a radius Number parameter"
+  },
+  "promptCompassCenter": "Select center point for the compass circle",
+  "@promptCompassCenter": {
+    "description": "Prompt for compass center point"
+  },
+  "promptCompassFirst": "Select first point of radius segment",
+  "@promptCompassFirst": {
+    "description": "Prompt for compass radius first point"
+  },
+  "promptCompassSecond": "Select second point of radius segment",
+  "@promptCompassSecond": {
+    "description": "Prompt for compass radius second point"
+  },
+  "promptEquilateralFirst": "Select first base vertex point (or click canvas)",
+  "@promptEquilateralFirst": {
+    "description": "Prompt for equilateral triangle first vertex"
+  },
+  "promptEquilateralSecond": "Select second base vertex point (or click canvas)",
+  "@promptEquilateralSecond": {
+    "description": "Prompt for equilateral triangle second vertex"
+  },
+  "promptIntersectionFirst": "Select first line or circle",
+  "@promptIntersectionFirst": {
+    "description": "Prompt for first intersecting geometry"
+  },
+  "promptIntersectionSecond": "Select second line or circle",
+  "@promptIntersectionSecond": {
+    "description": "Prompt for second intersecting geometry"
+  },
+  "promptLineFirst": "Select first point (or click canvas to place one)",
+  "@promptLineFirst": {
+    "description": "Prompt for first line point"
+  },
+  "promptLineSecond": "Select second point (or click canvas to place one)",
+  "@promptLineSecond": {
+    "description": "Prompt for second line point"
+  },
+  "promptMeasureAngleFirst": "Select first point on first leg",
+  "@promptMeasureAngleFirst": {
+    "description": "Prompt for measuring angle first leg point"
+  },
+  "promptMeasureAngleSecond": "Select point on second leg",
+  "@promptMeasureAngleSecond": {
+    "description": "Prompt for measuring angle second leg point"
+  },
+  "promptMeasureAngleVertex": "Select vertex point",
+  "@promptMeasureAngleVertex": {
+    "description": "Prompt for measuring angle vertex point"
+  },
+  "promptMeasureDistFirst": "Select first point",
+  "@promptMeasureDistFirst": {
+    "description": "Prompt for measuring distance first point"
+  },
+  "promptMeasureDistSecond": "Select second point",
+  "@promptMeasureDistSecond": {
+    "description": "Prompt for measuring distance second point"
+  },
+  "promptMidpointFirst": "Select first point or click a segment",
+  "@promptMidpointFirst": {
+    "description": "Prompt for midpoint first point or segment"
+  },
+  "promptMidpointSecond": "Select second point",
+  "@promptMidpointSecond": {
+    "description": "Prompt for midpoint second point"
+  },
+  "promptPerpendicularFirst": "Select base line",
+  "@promptPerpendicularFirst": {
+    "description": "Prompt for perpendicular line base line"
+  },
+  "promptPerpendicularSecond": "Select point on or off the line (or click canvas)",
+  "@promptPerpendicularSecond": {
+    "description": "Prompt for perpendicular passing point"
+  },
+  "promptPerpBisectorFirst": "Select first point or click a segment",
+  "@promptPerpBisectorFirst": {
+    "description": "Prompt for perpendicular bisector first point"
+  },
+  "promptPerpBisectorSecond": "Select second point",
+  "@promptPerpBisectorSecond": {
+    "description": "Prompt for perpendicular bisector second point"
+  },
+  "promptPoint": "Click anywhere inside the Poincaré disk to place a point.",
+  "@promptPoint": {
+    "description": "Prompt when point tool is active"
+  },
+  "promptRayFirst": "Select start point",
+  "@promptRayFirst": {
+    "description": "Prompt for ray origin point"
+  },
+  "promptRaySecond": "Select direction point",
+  "@promptRaySecond": {
+    "description": "Prompt for ray direction point"
+  },
+  "promptSegmentFirst": "Select first endpoint",
+  "@promptSegmentFirst": {
+    "description": "Prompt for segment first endpoint"
+  },
+  "promptSegmentSecond": "Select second endpoint",
+  "@promptSegmentSecond": {
+    "description": "Prompt for segment second endpoint"
+  },
+  "redoTooltip": "Redo",
+  "@redoTooltip": {
+    "description": "Tooltip for redo button"
+  },
+  "removeFromRecentTooltip": "Remove from list of recent files",
+  "@removeFromRecentTooltip": {
+    "description": "Tooltip for removing a recent file entry"
+  },
+  "resetViewTooltip": "Reset View",
+  "@resetViewTooltip": {
+    "description": "Tooltip for reset view button"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button label"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button label"
+  },
+  "saveFailedMessage": "The attempt to save failed.",
+  "@saveFailedMessage": {
+    "description": "Message displayed when saving fails"
+  },
+  "saveFailedTitle": "Save Failed",
+  "@saveFailedTitle": {
+    "description": "Title of save failed error dialog"
+  },
+  "saveToDrive": "Save to Drive",
+  "@saveToDrive": {
+    "description": "Title of Google Drive save tab"
+  },
+  "searchDriveHint": "Search by title or query (e.g. owner:me)...",
+  "@searchDriveHint": {
+    "description": "Search field hint in Google Drive tab"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Settings screen title"
+  },
+  "settingsTooltip": "Settings",
+  "@settingsTooltip": {
+    "description": "Tooltip for settings gear icon"
+  },
+  "sliderDecreaseSpeedTooltip": "Decrease speed",
+  "@sliderDecreaseSpeedTooltip": {
+    "description": "Tooltip for slider left decrease arrow"
+  },
+  "sliderIncreaseSpeedTooltip": "Increase speed",
+  "@sliderIncreaseSpeedTooltip": {
+    "description": "Tooltip for slider right increase arrow"
+  },
+  "switchLanguageTooltip": "Switch Language",
+  "@switchLanguageTooltip": {
+    "description": "Tooltip for language switcher popup button"
+  },
+  "tabGoogleDrive": "Google Drive",
+  "@tabGoogleDrive": {
+    "description": "Google Drive tab label"
+  },
+  "tabLocalData": "Local Data",
+  "@tabLocalData": {
+    "description": "Local Data tab label"
+  },
+  "tabRecent": "Recent",
+  "@tabRecent": {
+    "description": "Recent files tab label"
+  },
+  "termsOfService": "Terms of Service",
+  "@termsOfService": {
+    "description": "Navigation title for Terms of Service"
+  },
+  "titleLabel": "Title",
+  "@titleLabel": {
+    "description": "Label for title field"
+  },
+  "toggleLockSelectedTooltip": "Toggle Lock on Selected",
+  "@toggleLockSelectedTooltip": {
+    "description": "Tooltip to toggle lock on selected item"
+  },
+  "toolbarAndSliders": "Toolbar and Sliders",
+  "@toolbarAndSliders": {
+    "description": "Navigation item for controls and sliders guide"
+  },
+  "toolAngleBisector": "Angle Bisector",
+  "@toolAngleBisector": {
+    "description": "Tool label for angle bisector"
+  },
+  "toolCircle": "Circle",
+  "@toolCircle": {
+    "description": "Tool label for circle"
+  },
+  "toolCircleRadius": "Circle (Radius)",
+  "@toolCircleRadius": {
+    "description": "Tool label for circle by radius"
+  },
+  "toolCompass": "Compass",
+  "@toolCompass": {
+    "description": "Tool label for hyperbolic compass"
+  },
+  "toolEquilateralTriangle": "Equilateral △",
+  "@toolEquilateralTriangle": {
+    "description": "Tool label for equilateral triangle"
+  },
+  "toolGroupCircles": "Circles",
+  "@toolGroupCircles": {
+    "description": "Toolbar group label for circles"
+  },
+  "toolGroupConstruct": "Construct",
+  "@toolGroupConstruct": {
+    "description": "Toolbar group label for constructions"
+  },
+  "toolGroupLines": "Lines",
+  "@toolGroupLines": {
+    "description": "Toolbar group label for lines"
+  },
+  "toolGroupMeasure": "Measure",
+  "@toolGroupMeasure": {
+    "description": "Toolbar group label for measurements"
+  },
+  "toolGroupNavigate": "Navigate",
+  "@toolGroupNavigate": {
+    "description": "Toolbar group label for navigation"
+  },
+  "toolGroupOptionsTooltip": "{group} options",
+  "@toolGroupOptionsTooltip": {
+    "description": "Tooltip for toolbar group selection button",
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "toolGroupPoints": "Points",
+  "@toolGroupPoints": {
+    "description": "Toolbar group label for points"
+  },
+  "toolIntersection": "Intersection",
+  "@toolIntersection": {
+    "description": "Tool label for intersection"
+  },
+  "toolLine": "Line",
+  "@toolLine": {
+    "description": "Tool label for line"
+  },
+  "toolMeasureAngle": "Angle",
+  "@toolMeasureAngle": {
+    "description": "Tool label for measuring angles"
+  },
+  "toolMeasureDistance": "Distance",
+  "@toolMeasureDistance": {
+    "description": "Tool label for measuring distance"
+  },
+  "toolMidpoint": "Midpoint",
+  "@toolMidpoint": {
+    "description": "Tool label for midpoint"
+  },
+  "toolMoveDisk": "Möbius Move",
+  "@toolMoveDisk": {
+    "description": "Tool label for Möbius disk translation"
+  },
+  "toolPanZoom": "Pan & Zoom",
+  "@toolPanZoom": {
+    "description": "Tool label for Euclidean pan and zoom"
+  },
+  "toolPerpendicular": "Perpendicular",
+  "@toolPerpendicular": {
+    "description": "Tool label for perpendicular line"
+  },
+  "toolPerpendicularBisector": "Perp. Bisector",
+  "@toolPerpendicularBisector": {
+    "description": "Tool label for perpendicular bisector"
+  },
+  "toolPoint": "Point",
+  "@toolPoint": {
+    "description": "Tool label for point"
+  },
+  "toolRay": "Ray",
+  "@toolRay": {
+    "description": "Tool label for ray"
+  },
+  "toolSegment": "Segment",
+  "@toolSegment": {
+    "description": "Tool label for segment"
+  },
+  "toolSelect": "Select",
+  "@toolSelect": {
+    "description": "Tool label for select tool"
+  },
+  "tutorialBack": "Back",
+  "@tutorialBack": {
+    "description": "Tutorial back button"
+  },
+  "tutorialCloseTooltip": "Close Tutorial",
+  "@tutorialCloseTooltip": {
+    "description": "Tooltip for closing tutorial"
+  },
+  "tutorialContinue": "Continue",
+  "@tutorialContinue": {
+    "description": "Tutorial continue button"
+  },
+  "tutorialDoItForMe": "Do it for me",
+  "@tutorialDoItForMe": {
+    "description": "Tutorial do it for me automated step button"
+  },
+  "tutorialFinish": "Finish",
+  "@tutorialFinish": {
+    "description": "Tutorial finish button"
+  },
+  "tutorialMinimizeTooltip": "Minimize",
+  "@tutorialMinimizeTooltip": {
+    "description": "Tooltip to minimize tutorial widget"
+  },
+  "tutorialResetStepTooltip": "Reset Step",
+  "@tutorialResetStepTooltip": {
+    "description": "Tooltip to reset current tutorial step"
+  },
+  "tutorialStepCounter": "Step {current} of {total}",
+  "@tutorialStepCounter": {
+    "description": "Tutorial step indicator",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialStepCounterCompact": "Step {current}/{total}",
+  "@tutorialStepCounterCompact": {
+    "description": "Compact tutorial step indicator",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "typeLabel": "Type",
+  "@typeLabel": {
+    "description": "Label for object type"
+  },
+  "undoTooltip": "Undo",
+  "@undoTooltip": {
+    "description": "Tooltip for undo button"
+  },
+  "unlockTooltip": "Unlock",
+  "@unlockTooltip": {
+    "description": "Tooltip to unlock an object"
+  },
+  "unsavedSceneMessage": "The drawing has been modified.\nWould you like to save it?",
+  "@unsavedSceneMessage": {
+    "description": "Confirmation message when leaving unsaved drawing"
+  },
+  "unsavedSceneTitle": "Unsaved Scene",
+  "@unsavedSceneTitle": {
+    "description": "Title of unsaved changes confirmation dialog"
+  },
+  "uploadFromFile": "Upload from file",
+  "@uploadFromFile": {
+    "description": "Button to upload drawing from a local file"
+  },
+  "userGuidesSection": "User Guides",
+  "@userGuidesSection": {
+    "description": "Header for user guides section in help drawer"
+  },
+  "validateAndLoad": "Validate & Load",
+  "@validateAndLoad": {
+    "description": "Button to validate and load edited JSON"
+  },
+  "toolMeasureCoordX": "X Coordinate",
+  "@toolMeasureCoordX": {
+    "description": "Tool label for measuring point X coordinate"
+  },
+  "toolMeasureCoordY": "Y Coordinate",
+  "@toolMeasureCoordY": {
+    "description": "Tool label for measuring point Y coordinate"
+  },
+  "promptMeasureCoordX": "Select a point to extract its X coordinate",
+  "@promptMeasureCoordX": {
+    "description": "Prompt for measuring X coordinate of a point"
+  },
+  "promptMeasureCoordY": "Select a point to extract its Y coordinate",
+  "@promptMeasureCoordY": {
+    "description": "Prompt for measuring Y coordinate of a point"
+  }
+}

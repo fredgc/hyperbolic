@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Hiperbolinės geometrijos apžvalga</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Hiperbolinės geometrijos apžvalga</h1>
+</header>
+<p>Hiperbolinės geometrijos braižymoįrankis yra interaktyvi
+drobėhiperbolinei geometrijai tyrinėti <strong>Poincarédisko
+modelyje</strong>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>).</p>
+<p>Poincarédiske galioja visi neutralios geometrijos teiginiai (Euklido
+postulatai be lygiagretumo postulato), tačiau lygiagretumo postulatas
+negalioja: bet kuriai tiesei
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
+ir taškui
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∉</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">P \notin L</annotation></semantics></math>
+egzistuoja be galo daug skirtingųtiesiųper
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>,
+kurios niekada nekerta
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>.</p>
+<h2 id="poincaré-disko-modelis">1. Poincaré disko modelis</h2>
+<ul>
+<li><p><strong>Taškai</strong>: visi hiperbolinės erdvės taškai atitinka
+taškus atviro vienetinio disko viduje
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| &lt; 1</annotation></semantics></math>.
+Vienetinio apskritimo taškai
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| = 1</annotation></semantics></math>
+yra begalybės taškai (ribiniai taškai
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">\partial \mathbb{D}</annotation></semantics></math>).</p></li>
+<li><p><strong>Tiesės (geodezės)</strong>: hiperbolinės tiesės
+atvaizduojamos Euklido lankais, kurie vienetinįapskritimąkerta stačiu
+kampu
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>90</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">90^\circ</annotation></semantics></math>),
+taip pat Euklido skersmenimis, einančiais per centrą.</p></li>
+<li><p><strong>Konformumas</strong>: Poincarémodelis yra konforminis
+(išlaiko kampus): kampas tarp dviejųhiperboliniųtiesiųlygus Euklido
+kampui tarp jųliestiniųsankirtos taške.</p></li>
+</ul>
+<h2 id="hiperbolinis-atstumas-ir-metrika">2. Hiperbolinis atstumas ir
+metrika</h2>
+<p>Artėjant prie vienetinio disko ribos
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|z| \to 1</annotation></semantics></math>),
+hiperboliniai atstumai eksponentiškai auga iki begalybės.</p>
+<p>Dviejųtaškų<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">u, v \in \mathbb{D}</annotation></semantics></math>
+(kompleksiniųskaičių<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">x + iy</annotation></semantics></math>)
+<strong>hiperbolinis atstumas</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v)</annotation></semantics></math>
+yra:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>arcosh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>u</mi><mo>−</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>u</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>artanh</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">d(u, v) = \operatorname{arcosh}\left(1 + \frac{2|u - v|^2}{(1 - |u|^2)(1 - |v|^2)}\right) = 2 \operatorname{artanh}\left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math></p>
+<p>Dažnai patogu naudoti
+pseudohiperbolinįatstumą<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t = \tanh(d(u, v) / 2) \in [0, 1)</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>u</mi><mo>−</mo><mi>v</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>u</mi><mo accent="true">‾</mo></mover><mi>v</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">t = \left|\frac{u - v}{1 - \bar{u}v}\right|</annotation></semantics></math></p>
+<p>Taškui, esančiam Euklido atstumu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">r = |z|</annotation></semantics></math>
+nuo centro:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mo>ln</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>r</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>2</mn><mo>artanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⇔</mo><mi>r</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\rho = \ln\left(\frac{1+r}{1-r}\right) = 2\operatorname{artanh}(r) \iff r = \tanh(\rho / 2)</annotation></semantics></math></p>
+<p>Disko kraštas yra be galo toli.</p>
+<h2 id="hiperboliniai-apskritimai">3. Hiperboliniai apskritimai</h2>
+<p><strong>Hiperbolinis apskritimas</strong>
+(visųtaškų<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">Q \in \mathbb{D}</annotation></semantics></math>
+aibė, nutolusių hiperboliniu atstumu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+nuo centro
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">P \in \mathbb{D}</annotation></semantics></math>)
+yra <strong>įprastas Euklido apskritimas</strong>, esantis disko
+viduje!</p>
+<p>Tačiau, nebent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+yra centre, to apskritimo <strong>Euklido centras</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>
+yra pasislinkęs disko centro link, palyginti su tikruoju
+<strong>hiperboliniu centru</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>.</p>
+<p>Hiperboliniam centrui
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">p = |P|</annotation></semantics></math>)
+ir spinduliui
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mo>tanh</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ρ</mi><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">t = \tanh(\rho / 2)</annotation></semantics></math>):</p>
+<ul>
+<li><p><strong>Euklido centras</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mi>P</mi></mrow><annotation encoding="application/x-tex">C_E = \frac{1 - t^2}{1 - p^2 t^2} P</annotation></semantics></math></p></li>
+<li><p><strong>Euklido spindulys</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>E</mi></msub><mo>=</mo><mfrac><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></mrow><mrow><mn>1</mn><mo>−</mo><msup><mi>p</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">R_E = \frac{(1 - p^2) t}{1 - p^2 t^2}</annotation></semantics></math></p></li>
+</ul>
+<h2 id="braižymas-liniuote-ir-skriestuvu">4. Braižymas liniuote ir
+skriestuvu</h2>
+<p>Klasikiniai braižymo būdai natūraliai pritaikomi hiperbolinėje
+erdvėje:</p>
+<h3 id="hiperbolinis-skriestuvas">Hiperbolinis skriestuvas</h3>
+<ul>
+<li><p><strong>Centras ir taškas apskritime</strong>: turint
+centrą<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+ir
+tašką<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
+apskaičiuojamas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">|</mo><mfrac><mrow><mi>P</mi><mo>−</mo><mi>Q</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>P</mi><mo accent="true">‾</mo></mover><mi>Q</mi></mrow></mfrac><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">t = \left|\frac{P - Q}{1 - \bar{P}Q}\right|</annotation></semantics></math>,
+tada nubrėžiamas Euklido apskritimas su centru
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>E</mi></msub><annotation encoding="application/x-tex">C_E</annotation></semantics></math>
+ir spinduliu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>E</mi></msub><annotation encoding="application/x-tex">R_E</annotation></semantics></math>.</p></li>
+<li><p><strong>Centras ir spindulys</strong>: turint
+centrą<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+ir
+spindulį<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>
+(arba taškus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A, B</annotation></semantics></math>),
+brėžiamas hiperbolinis apskritimas nurodytu spinduliu.</p></li>
+</ul>
+<h3 id="hiperbolinė-tiesė-liniuotė">Hiperbolinė tiesė (liniuotė)</h3>
+<p>Per du taškus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi><mo>∈</mo><mi>𝔻</mi></mrow><annotation encoding="application/x-tex">P, Q \in \mathbb{D}</annotation></semantics></math>
+eina viena hiperbolinėgeodezė:</p>
+<ul>
+<li><p>Jei
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">P, Q</annotation></semantics></math>
+ir centras yra vienoje tiesėje, tiesėyra Euklido skersmuo.</p></li>
+<li><p>Priešingu atveju atliekama inversija vienetiniame apskritime:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>′</mi><mo>=</mo><mi>P</mi><mi>/</mi><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>P</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">P&#39; = P / |P|^2</annotation></semantics></math>.
+Vienintelis Euklido apskritimas per
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>,</mo><mi>Q</mi><mo>,</mo><mi>P</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">P, Q, P&#39;</annotation></semantics></math>
+kerta vienetinį apskritimąstatmenai.</p></li>
+</ul>
+<h2 id="izometrijos-ir-möbius-transformacijos">5. Izometrijos ir Möbius
+transformacijos</h2>
+<p>Hiperbolinėerdvėyra vienalytė: kiekvienas taškas pasižymi vienoda
+vietine geometrija. Judėjimai yra disko automorfizmai (Möbius
+transformacijos):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>↦</mo><msup><mi>e</mi><mrow><mi>i</mi><mi>θ</mi></mrow></msup><mfrac><mrow><mi>z</mi><mo>−</mo><mi>a</mi></mrow><mrow><mn>1</mn><mo>−</mo><mover><mi>a</mi><mo accent="true">‾</mo></mover><mi>z</mi></mrow></mfrac><mo>,</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">|</mo><mi>a</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo>,</mo><mspace width="0.278em"></mspace><mi>θ</mi><mo>∈</mo><mi>ℝ</mi></mrow><annotation encoding="application/x-tex">z \mapsto e^{i\theta} \frac{z - a}{1 - \bar{a} z}, \quad |a| &lt; 1, \; \theta \in \mathbb{R}</annotation></semantics></math></p>
+<p>Šios transformacijos išlaiko hiperbolinius atstumus, apskritimus ir
+kampus.</p>
+<h2 id="nuorodos">6. Nuorodos</h2>
+<ul>
+<li><p><a
+href="https://en.wikipedia.org/wiki/Poincar%C3%A9_disk_model">Vikipedija:
+Poincaré disko modelis</a> —analitinės atstumų, apskritimųir
+tiesiųformulės.</p></li>
+<li><p><a href="https://www.cs.unm.edu/~joel/NonEuclid/">NonEuclid
+interaktyvus šaltinis</a>— klasikiniai hiperbolinio braižymo
+pavyzdžiai.</p></li>
+</ul>
+</body>
+</html>

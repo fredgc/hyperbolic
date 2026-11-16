@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>控制与导航指南</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">控制与导航指南</h1>
+</header>
+<p>本应用提供了直观的工具栏工具、交互式画布手势以及专用于操纵双曲几何图形的滑块：</p>
+<h2 id="视口导航">1. 视口导航</h2>
+<ul>
+<li><p><strong>莫比乌斯平移（移动圆盘）</strong>：选择<strong>移动圆盘</strong>工具并在画布上任意拖拽。双曲平面通过圆盘自同构（等距变换）平滑移动，光标下的点随拖拽平移，同时保持
+所有双曲长度、角度与圆不变。</p></li>
+<li><p><strong>欧几里得平移与缩放</strong>：</p>
+<ul>
+<li><p><strong>鼠标滚轮/触控板</strong>：滚动或捏合可平滑放大或缩小。</p></li>
+<li><p><strong>平移/缩放工具</strong>：选择<strong>平移/缩放</strong>工具并拖拽以移动欧几里得视口。</p></li>
+<li><p><strong>重置视图</strong>：点击工具栏或视图菜单中的<strong>重置视图</strong>按钮以恢复默认原点与缩放级别。</p></li>
+</ul></li>
+</ul>
+<h2 id="选择与对象编辑">2. 选择与对象编辑</h2>
+<ul>
+<li><p><strong>选择对象</strong>：选择<strong>选择</strong>工具，点击任意点、测地线、圆或数值。</p></li>
+<li><p><strong>属性栏</strong>：选中对象后，画布上方会显示属性栏：</p>
+<ul>
+<li><p>对象类型指示标签。</p></li>
+<li><p>行内可编辑的<strong>名称</strong>字段（支持点击编辑并支持撤销/重做）。</p></li>
+<li><p>交互式颜色选择样本，可选择任意自定义颜色。</p></li>
+<li><p><strong>锁定/解锁</strong>切换开关以及<strong>删除</strong>按钮。</p></li>
+</ul></li>
+</ul>
+<h2 id="专用交互式滑块">3. 专用交互式滑块</h2>
+<ul>
+<li><p>位于庞加莱圆盘画布正下方。</p></li>
+<li><p><strong>非活动状态</strong>：未选中任何数值时，滑块禁用且标签为空。</p></li>
+<li><p><strong>活动状态</strong>：点击数值面板中的任意数值参数，滑块将绑定到该数值，并更新名称、范围与当前值。</p></li>
+<li><p>拖动滑块手柄或使用箭头按钮平滑调整参数，并实时观察相关联几何对象的更新。</p></li>
+</ul>
+<h2 id="设置与帮助">4. 设置与帮助</h2>
+<ul>
+<li><p><strong>设置按钮</strong>：点击顶部应用栏中的齿轮图标以配置外观主题、颜色和偏好设置。设置跨会话持久化保存。</p></li>
+<li><p><strong>帮助菜单</strong>：点击顶部应用栏中的帮助图标（?）以查看“关于”页面、作图指南以及开发者文档。</p></li>
+</ul>
+</body>
+</html>

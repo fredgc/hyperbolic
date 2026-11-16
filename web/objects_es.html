@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guía de Objetos Geométricos</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guía de Objetos Geométricos</h1>
+</header>
+<p>La Herramienta de Dibujo Hiperbólico modela entidades geométricas y
+parámetros numéricos dentro del modelo del disco de
+Poincaré<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>.</p>
+<h2 id="puntos">1. Puntos</h2>
+<ul>
+<li><p><strong>Puntos Libres</strong>: Seleccione la herramienta
+<strong>Punto</strong> y haga clic en cualquier lugar dentro del disco
+unitario. Los puntos libres se pueden arrastrar a cualquier lugar dentro
+del disco.</p></li>
+<li><p><strong>Puntos Restringidos</strong>: Se pueden crear puntos como
+la intersección de dos líneas o círculos utilizando la herramienta
+<strong>Intersección</strong>.</p></li>
+<li><p><strong>Edición de Puntos</strong>: Haga clic en un punto con la
+herramienta <strong>Seleccionar</strong> para mostrar su barra de
+propiedades. Puede cambiar el nombre del punto, cambiar su color con el
+selector de color o alternar su estado de bloqueo.</p></li>
+</ul>
+<h2 id="líneas-y-segmentos-geodésicos">2. Líneas y Segmentos
+Geodésicos</h2>
+<ul>
+<li><p><strong>Líneas Hiperbólicas</strong>: Seleccione la herramienta
+<strong>Línea</strong>, luego haga clic en dos puntos existentes (o haga
+clic en ubicaciones vacías para crear puntos). La línea geodésica se
+dibuja cruzando el disco ortogonalmente al círculo límite.</p></li>
+<li><p><strong>Segmentos</strong>: Seleccione la herramienta
+<strong>Segmento</strong> y haga clic en dos extremos para crear un
+segmento geodésico finito.</p></li>
+<li><p><strong>Estilo y Color</strong>: Seleccione cualquier línea o
+segmento para cambiar su nombre o personalizar el color de su trazo en
+la barra de propiedades del objeto seleccionado.</p></li>
+</ul>
+<h2 id="círculos-hiperbólicos">3. Círculos Hiperbólicos</h2>
+<ul>
+<li><p><strong>Creación de Círculos</strong>: Seleccione la herramienta
+<strong>Círculo</strong>. Haga clic en el primer punto para que actúe
+como centro hiperbólico, luego haga clic en un segundo punto para
+establecer el radio.</p></li>
+<li><p><strong>Propiedades</strong>: En el modelo de Poincaré, los
+círculos hiperbólicos se representan como círculos euclidianos cuyo
+centro estádesplazado hacia el origen del disco.</p></li>
+</ul>
+<h2 id="objetos-numéricos-y-mediciones">4. Objetos Numéricos y
+Mediciones</h2>
+<ul>
+<li><p><strong>Distancia</strong>: Seleccione la herramienta
+<strong>Distancia</strong> y haga clic en dos puntos. Se añade un nuevo
+número que representa la distancia hiperbólica a la lista de
+parámetros.</p></li>
+<li><p><strong>Ángulo</strong>: Seleccione la herramienta
+<strong>Ángulo</strong> y haga clic en tres puntos para medir elángulo
+hiperbólico conforme.</p></li>
+<li><p><strong>Parámetros Libres</strong>: En el panel de Números, haga
+clic en <strong>+</strong> para añadir un parámetro escalar
+libre.</p></li>
+<li><p><strong>Ajuste del Control Deslizante</strong>: Haga clic en
+cualquier número en el panel para activar el control deslizante
+interactivo principal ubicado debajo del lienzo.</p></li>
+</ul>
+</body>
+</html>

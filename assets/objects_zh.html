@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>几何对象指南</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">几何对象指南</h1>
+</header>
+<p>双曲几何作图工具在庞加莱圆盘模型<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>中对几何实体与数值参数进行建模。</p>
+<h2 id="点">1. 点</h2>
+<ul>
+<li><p><strong>自由点</strong>：选择<strong>点</strong>工具，点击单位圆盘内的任意位置。自由点可在圆盘内部任意拖拽。</p></li>
+<li><p><strong>约束交点</strong>：使用<strong>交点</strong>工具，可通过两条直线或圆的交集创建交点。</p></li>
+<li><p><strong>编辑点</strong>：使用<strong>选择</strong>工具点击某个点以显示其属性栏。您可以重命名该点、使用调色板更改颜色或切换锁定状态。</p></li>
+</ul>
+<h2 id="测地线与线段">2. 测地线与线段</h2>
+<ul>
+<li><p><strong>双曲直线</strong>：选择<strong>直线</strong>工具，然后点击两个已有端点（或点击空白位置新建点）。测地线穿过圆盘，且与边界圆正交。</p></li>
+<li><p><strong>线段</strong>：选择<strong>线段</strong>工具，点击两个端点以创建有限长的测地线段。</p></li>
+<li><p><strong>样式与颜色</strong>：选中任意直线或线段，可在属性栏中重命名或自定义描边颜色。</p></li>
+</ul>
+<h2 id="双曲圆">3. 双曲圆</h2>
+<ul>
+<li><p><strong>创建圆</strong>：选择<strong>圆</strong>工具。点击第一个点作为双曲圆心，点击第二个点设定半径。</p></li>
+<li><p><strong>几何特性</strong>：在庞加莱模型中，双曲圆显示为欧几里得圆，但其欧几里得圆心相对于真实的双曲圆心向圆盘原点发生偏移。</p></li>
+</ul>
+<h2 id="数值对象与测量">4. 数值对象与测量</h2>
+<ul>
+<li><p><strong>距离</strong>：选择<strong>距离</strong>工具并点击两点。表示双曲距离的新数值将添加到参数列表中。</p></li>
+<li><p><strong>角度</strong>：选择<strong>角度</strong>工具并点击三点以测量保角双曲角。</p></li>
+<li><p><strong>自由参数</strong>：在数值面板中点击<strong>+</strong>添加自由标量参数。</p></li>
+<li><p><strong>滑块微调</strong>：点击面板中的任意数值，即可激活画布正下方的交互式主滑块。</p></li>
+</ul>
+</body>
+</html>

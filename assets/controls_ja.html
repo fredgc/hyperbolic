@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>操作とナビゲーションのガイド</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">操作とナビゲーションのガイド</h1>
+</header>
+<p>本アプリは、直感的なツールバー、キャンバス上のインタラクティブなジェスチャー、および双曲幾何図形を操作するための専用スライダーを備えています：</p>
+<h2 id="ビューポートのナビゲーション">1.
+ビューポートのナビゲーション</h2>
+<ul>
+<li><p><strong>メビウス変換移動（円板の移動）</strong>:
+<strong>円板の移動</strong>ツールを選択し、キャンバス上の任意の場所をドラッグします。円板の自己同型写像（等長変換）によ
+り双曲平面が滑らかに移動し、ポインタ直下の点が追従しながら、双曲空間のすべての長さ・角度・円が保たれます。</p></li>
+<li><p><strong>ユークリッド移動とズーム</strong>:</p>
+<ul>
+<li><p><strong>マウスホイール/トラックパッド</strong>:スクロールまたはピンチ操作で滑らかにズームイン・ズームアウトします。</p></li>
+<li><p><strong>パン/ズームツール</strong>:
+<strong>パン/ズーム</strong>ツールを選択してドラッグし、ユークリッド表示領域を移動します。</p></li>
+<li><p><strong>ビューのリセット</strong>:ツールバーまたは表示メニューの<strong>ビューのリセット</strong>をクリックして、初期原点とズームに戻します。</p></li>
+</ul></li>
+</ul>
+<h2 id="選択とオブジェクト編集">2. 選択とオブジェクト編集</h2>
+<ul>
+<li><p><strong>オブジェクトの選択</strong>:
+<strong>選択</strong>ツールを選び、任意の点、測地線、円、または数値をクリックします。</p></li>
+<li><p><strong>プロパティバー</strong>:オブジェクトを選択すると、キャンバス上部に情報バーが表示されます：</p>
+<ul>
+<li><p>オブジェクトの種類を示すチップ。</p></li>
+<li><p>インライン編集可能な<strong>名前</strong>欄（元に戻す/やり直し対応）。</p></li>
+<li><p>独自の色を指定できるインタラクティブな<strong>カラーピッカー</strong>。</p></li>
+<li><p><strong>ロック/ロック解除</strong>切り替えおよび<strong>削除</strong>ボタン。</p></li>
+</ul></li>
+</ul>
+<h2 id="専用のインタラクティブスライダー">3.
+専用のインタラクティブスライダー</h2>
+<ul>
+<li><p>ポアンカレ円板キャンバスの直下に配置されています。</p></li>
+<li><p><strong>非アクティブ状態</strong>:数値が選択されていないときは無効化され、ラベルは空になります。</p></li>
+<li><p><strong>アクティブ状態</strong>:数値パネル内の任意のパラメータをクリックすると、スライダーがその数値にバインドされ、名前・範囲・現在値が更新されます。</p></li>
+<li><p>つまみをドラッグするか矢印ボタンを使用してパラメータを滑らかに調整し、依存する幾何オブジェクトがリアルタイムに更新される様子を確認できます。</p></li>
+</ul>
+<h2 id="設定とヘルプ">4. 設定とヘルプ</h2>
+<ul>
+<li><p><strong>設定ボタン</strong>:上部のアプリアイコン（歯車）をクリックして、表示テーマ、配色、環境設定を行います。設定はセッション間で保持されます。</p></li>
+<li><p><strong>ヘルプメニュー</strong>:上部バーのヘルプアイコン（?）をクリックして、概要ページ、作図ガイド、開発者ドキュメントを閲覧します。</p></li>
+</ul>
+</body>
+</html>

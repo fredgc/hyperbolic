@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guia de Objetos Geométricos</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="css/doc_style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guia de Objetos Geométricos</h1>
+</header>
+<p>A Ferramenta de Desenho Hiperbólico modela entidades geométricas e
+parâmetros numéricos no modelo do disco de
+Poincaré<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝔻</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>z</mi><mo>∈</mo><mi>ℂ</mi><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>&lt;</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}</annotation></semantics></math>.</p>
+<h2 id="pontos">1. Pontos</h2>
+<ul>
+<li><p><strong>Pontos Livres</strong>: Selecione a ferramenta
+<strong>Ponto</strong> e clique em qualquer lugar dentro do disco
+unitário. Pontos livres podem ser arrastados livremente pelo
+disco.</p></li>
+<li><p><strong>Pontos Restritos</strong>: Pontos podem ser criados na
+interseção de duas retas ou círculos usando a ferramenta
+<strong>Interseção</strong>.</p></li>
+<li><p><strong>Edição de Pontos</strong>: Clique em um ponto com a
+ferramenta <strong>Selecionar</strong> para exibir a barra de
+propriedades.Épossível renomear o ponto, alterar sua cor ou alternar seu
+bloqueio.</p></li>
+</ul>
+<h2 id="retas-e-segmentos-geodésicos">2. Retas e Segmentos
+Geodésicos</h2>
+<ul>
+<li><p><strong>Retas Hiperbólicas</strong>: Selecione a ferramenta
+<strong>Reta</strong> e clique em dois pontos existentes (ou em locais
+vazios para criar pontos). A reta geodésica atravessa o disco
+ortogonalmente ao círculo limite.</p></li>
+<li><p><strong>Segmentos</strong>: Selecione a ferramenta
+<strong>Segmento</strong> e clique em duas extremidades para criar um
+segmento geodésico finito.</p></li>
+<li><p><strong>Estilo e Cor</strong>: Selecione qualquer reta ou
+segmento para renomeá-lo ou personalizar a cor do traço na barra de
+propriedades.</p></li>
+</ul>
+<h2 id="círculos-hiperbólicos">3. Círculos Hiperbólicos</h2>
+<ul>
+<li><p><strong>Criação de Círculos</strong>: Selecione a ferramenta
+<strong>Círculo</strong>. Clique no primeiro ponto como centro
+hiperbólico e no segundo para definir o raio.</p></li>
+<li><p><strong>Propriedades</strong>: No modelo de Poincaré, círculos
+hiperbólicos são representados como círculos euclidianos cujo
+centroédeslocado em direçãoà origem do disco.</p></li>
+</ul>
+<h2 id="números-e-medições">4. Números e Medições</h2>
+<ul>
+<li><p><strong>Distância</strong>: Selecione a ferramenta
+<strong>Distância</strong> e clique em dois pontos. Um novo número
+representando a distância hiperbólica seráadicionadoàlista.</p></li>
+<li><p><strong>Ângulo</strong>: Selecione a ferramenta
+<strong>Ângulo</strong> e clique em três pontos para medir oângulo
+conforme hiperbólico.</p></li>
+<li><p><strong>Parâmetros Livres</strong>: No painel Números, clique em
+<strong>+</strong> para adicionar um parâmetro escalar livre.</p></li>
+<li><p><strong>Ajuste pelo Controle Deslizante</strong>: Clique em
+qualquer número do painel para ativar o controle interativo principal
+sob a tela.</p></li>
+</ul>
+</body>
+</html>
